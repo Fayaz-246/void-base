@@ -1,38 +1,38 @@
 import { Interaction } from "discord.js";
 import myClient from "../../classes/client";
 
-async function runSlashCmd(client: myClient, interaction: Interaction) {
-  if (!interaction.isChatInputCommand()) return;
+async function runBtn(client: myClient, interaction: Interaction) {
+  if (!interaction.isButton()) return;
 
   if (!interaction.guild) {
     if (!interaction.replied && !interaction.deferred) {
       await interaction.reply({
-        content: "/ Commands can only be used in guilds",
+        content: "Buttons can only be used in guilds",
         flags: 64,
       });
     }
     return;
   }
 
-  const command = client.interactions.get(interaction.commandName);
+  const iBtnID = interaction.customId;
+  const button = client.buttons.get(iBtnID);
 
-  if (!command) {
+  if (!button) {
     if (!interaction.replied && !interaction.deferred) {
       await interaction.reply({
-        content: "Code not written for this (/) command yet",
+        content: "Code not written for this button yet",
         flags: 64,
       });
     }
     return;
   }
-
   await client.utils.runSafe(
     interaction,
     async () => {
-      await command.run(interaction, client);
+      await button.run(interaction, client);
     },
-    "An error occurred while running this command."
+    "An error occurred while running this button."
   );
 }
 
-export default runSlashCmd;
+export default runBtn;

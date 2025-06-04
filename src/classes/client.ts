@@ -15,14 +15,15 @@ import {
   logger,
   delay,
 } from "../utils/exports";
-import { SlashCommand } from "../interfaces/main";
+import { ButtonCommand, SlashCommand } from "../interfaces/main";
 
 export default class myClient extends Client {
   public interactions = new Collection<string, SlashCommand>();
-  public buttons = new Collection();
-  public menus: { string: Collection<any, any> } = {
-    string: new Collection(),
-  };
+  public buttons = new Collection<string, ButtonCommand>();
+
+  // public menus: { string: Collection<any, any> } = {
+  //   string: new Collection(),
+  // };
 
   public config = { embedColor: "#273051" };
 
@@ -43,6 +44,11 @@ export default class myClient extends Client {
   public logger = logger;
 
   public commandArray: ApplicationCommandDataResolvable[] = [];
+
+  public tables: {
+    slashCommands: string | null;
+    buttons: string | null;
+  } = { slashCommands: null, buttons: null };
 
   constructor() {
     super({

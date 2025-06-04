@@ -1,5 +1,6 @@
 import {
   ApplicationCommandDataResolvable,
+  ButtonInteraction,
   ChatInputCommandInteraction,
 } from "discord.js";
 import myClient from "../classes/client";
@@ -10,4 +11,12 @@ export interface SlashCommand {
     interaction: ChatInputCommandInteraction,
     client: myClient,
   ) => void | Promise<void>;
+}
+
+export interface ButtonCommand {
+  name: string,
+  run: (
+    interaction: ButtonInteraction,
+    client: myClient
+  ) => void | Promise<void>
 }
