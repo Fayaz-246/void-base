@@ -29,3 +29,9 @@ _Bear in mind this base is still in development so it will take time before all 
 - Context Menus
 
 - Autocomplete support
+
+<h3>How to use?</h3>
+
+> So I'll give a proper guide on how to use it l8r but for now clone the repo, compile it run it.
+
+> The args in buttons are separated by `*`. So th args in `testing-btn*5*hi` would be `["5","hi"]`
