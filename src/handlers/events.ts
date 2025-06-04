@@ -1,13 +1,11 @@
 import path from "path";
 import { ClientEvents } from "discord.js";
 import myClient from "../classes/client";
-import fs from "fs";
-import chalk from "chalk";
 
 function eventHandler(client: myClient): void {
   const eventFolders = client.utils.getAllFiles(
     path.join(__dirname, "..", "events"),
-    true,
+    true
   );
 
   for (const eventFolder of eventFolders) {
@@ -23,14 +21,14 @@ function eventHandler(client: myClient): void {
           if (typeof eventModule.default === "function") {
             await eventModule.default(client, ...args);
           } else {
-            console.warn(
-              chalk.yellow(
-                `[WARN] ${eventFile} does not export a default function.`,
-              ),
+            client.logger.warn(
+              "EVENTS",
+              `${eventFile} does not export a default function.`
             );
           }
         } catch (err) {
-          console.error(chalk.red(`[ERROR] Failed to load ${eventFile}`), err);
+          client.logger.error("EVENTS", `Failed to load ${eventFile}`);
+          console.log(err);
         }
       }
     });

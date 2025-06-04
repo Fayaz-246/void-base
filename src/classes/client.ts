@@ -10,8 +10,10 @@ import {
   getAllFiles,
   formatStr,
   filterObj,
-  loosleyCheck,
+  looselyCheck,
   runSafe,
+  logger,
+  delay,
 } from "../utils/exports";
 import { SlashCommand } from "../interfaces/main";
 
@@ -33,9 +35,12 @@ export default class myClient extends Client {
     getAllFiles,
     formatStr,
     filterObj,
-    loosleyCheck,
+    looselyCheck,
+    delay,
     runSafe,
   };
+
+  public logger = logger;
 
   public commandArray: ApplicationCommandDataResolvable[] = [];
 
@@ -58,7 +63,7 @@ export default class myClient extends Client {
           __dirname,
           "..",
           "handlers",
-          handler.name,
+          handler.name
         );
         if (handler.isFile()) {
           const handlerFile = require(handlerPath);

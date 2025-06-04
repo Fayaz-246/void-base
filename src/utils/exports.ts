@@ -1,7 +1,19 @@
 import formatStr from "./formatStr";
 import getAllFiles from "./getAllFiles";
 import filterObj from "./filterObj";
-import loosleyCheck from "./loosleyCheckCmds";
+import looselyCheck from "./looselyCheckCmds";
 import runSafe from "./runSafe";
+import { log, warn, error, info, success } from "./logs";
+import delay from "./delay";
 
-export { formatStr, getAllFiles, filterObj, loosleyCheck, runSafe };
+const logger = { log, warn, error, info, success };
+
+export {
+  formatStr,
+  getAllFiles,
+  filterObj,
+  looselyCheck,
+  runSafe,
+  delay,
+  logger,
+};

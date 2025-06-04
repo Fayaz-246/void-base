@@ -1,19 +1,27 @@
-import chalk from "chalk";
 import { readdirSync } from "fs";
 import path from "path";
 import clitable from "cli-table3";
 import myClient from "../../classes/client";
+
+const Colors = {
+  Red: "\x1B[31m",
+  Yellow: "\x1B[33m",
+  Green: "\x1B[32m",
+  Blue: "\x1B[34m",
+  Purple: "\x1B[38;5;129m",
+  Reset: "\x1B[0m",
+};
 
 async function sli(client: myClient) {
   const commandsDir = path.join(__dirname, "..", "..", "slashCommands");
   const folders = readdirSync(commandsDir);
   const table = new clitable({
     head: ["Command", "Category", "Status"],
-    style: { head: ["whte"], border: ["gray"] },
+    style: { head: ["white"], border: ["gray"] },
     colWidths: [20, 20, 10],
   });
 
-  const check = client.utils.loosleyCheck;
+  const check = client.utils.looselyCheck;
 
   for (const folder of folders) {
     const files = readdirSync(path.join(commandsDir, folder));
@@ -25,35 +33,34 @@ async function sli(client: myClient) {
       if (command?.data && command?.run) {
         client.interactions.set(
           command.data.name,
-          Object.assign(command, { folder }),
+          Object.assign(command, { folder })
         );
         client.commandArray.push(client.utils.filterObj(command.data));
         table.push([
-          chalk.green(command.data.name),
-          chalk.green(folder),
-          chalk.green(""),
+          `${Colors.Green}${command.data.name}${Colors.Reset}`,
+          `${Colors.Green}${folder}${Colors.Reset}`,
+          `${Colors.Green}${Colors.Reset}`,
         ]);
       } else {
-        console.log(chalk.yellow(`[WARN] ${file} is missing data or run()`));
+        client.logger.warn("SLASH CMDS", `${file} is missing data or run()`);
         table.push([
-          chalk.redBright(file),
-          chalk.redBright(folder),
-          chalk.redBright(""),
+          `${Colors.Red}${file}${Colors.Reset}`,
+          `${Colors.Red}${folder}${Colors.Reset}`,
+          `${Colors.Red}${Colors.Reset}`,
         ]);
       }
     }
   }
 
   if (!client.commandArray.length) {
-    return console.log(
-      chalk.redBright.bold.italic(
-        "Aborting (/) registration: No commands found.",
-      ),
+    return client.logger.error(
+      "SLASH CMDS",
+      `Aborting (/) registration: No commands found.`
     );
   }
 
   try {
-    console.log(chalk.yellow("[󰇘] Fetching existing (/) commands..."));
+    client.logger.warn("󰇘", "Fetching existing (/) commands...");
     const existing = await client.application?.commands.fetch();
     const localNames = client.commandArray.map((cmd) => cmd.name);
     const newCommands = [];
@@ -75,43 +82,36 @@ async function sli(client: myClient) {
         ?.filter((cmd) => !localNames.includes(cmd.name))
         .map((cmd) => cmd) || [];
 
-    if (toDelete.size > 0) {
-      console.log(
-        chalk.redBright(`[] Deleting ${toDelete.size} stale command(s)...`),
+    if (toDelete.length > 0) {
+      client.logger.error(
+        "",
+        `Deleting ${toDelete.length} stale command(s)...`
       );
       for (const cmd of toDelete) {
         await client.application?.commands.delete(cmd.id);
-        console.log(chalk.redBright(`  ↳ Deleted: ${cmd.name}`));
+        console.log(`${Colors.Red}  ↳ Deleted: ${cmd.name}${Colors.Reset}`);
       }
     }
     const toRegister = [...newCommands, ...updatedCommands];
     if (toRegister.length === 0) {
-      console.log(
-        chalk.greenBright("[] No command changes. Skipping (/) registration."),
+      client.logger.success(
+        "",
+        "No command changes. Skipping (/) registration."
       );
     } else {
-      console.log(
-        chalk.yellow(
-          `[󰇘] Registering ${toRegister.length} new/updated commands...`,
-        ),
-      );
+      client.logger.warn("󰇘", `${toRegister.length} new/updated commands...`);
       await client.application?.commands.set([
         ...client.commandArray, // send full clean state
       ]);
-      console.log(
-        chalk.greenBright(
-          `[] Successfully refreshed ${toRegister.length} (/) commands.`,
-        ),
+      client.logger.success(
+        "",
+        `Successfully refreshed ${toRegister.length} (/) commands.`
       );
     }
 
     console.log(table.toString());
   } catch (err) {
-    console.log(
-      chalk.bgRedBright.whiteBright.bold(
-        `Error during (/) registration: ${err}`,
-      ),
-    );
+    client.logger.error("SLASH CMDS", `Error during (/) registration: ${err}`);
   }
 }
 

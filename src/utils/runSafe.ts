@@ -1,5 +1,5 @@
-import chalk from "chalk";
 import { ChatInputCommandInteraction } from "discord.js";
+import { error } from "./logs";
 
 /**
  * Safely runs a function with a slash command interaction,
@@ -8,12 +8,12 @@ import { ChatInputCommandInteraction } from "discord.js";
 export default async function runSafe(
   interaction: ChatInputCommandInteraction,
   fn: () => Promise<void> | void,
-  errorMessage = "An error occurred while executing this command.",
+  errorMessage = "An error occurred while executing this command."
 ) {
   try {
     await fn();
   } catch (err) {
-    console.error(chalk.red(`[runSafe Error]`), err);
+    error(`runSafe Error`, `${err}`);
 
     if (!interaction.replied && !interaction.deferred) {
       await interaction.reply({
