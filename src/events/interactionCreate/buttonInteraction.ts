@@ -15,7 +15,8 @@ async function runBtn(client: myClient, interaction: Interaction) {
   }
 
   const iBtnID = interaction.customId;
-  const button = client.buttons.get(iBtnID);
+  let args: string[] | null = iBtnID.split("*") || null;
+  const button = client.buttons.get(args[0]);
 
   if (!button) {
     if (!interaction.replied && !interaction.deferred) {
@@ -26,10 +27,12 @@ async function runBtn(client: myClient, interaction: Interaction) {
     }
     return;
   }
+
   await client.utils.runSafe(
     interaction,
     async () => {
-      await button.run(interaction, client);
+      if (args.shift() == undefined) args = null;
+      await button.run(interaction, args, client);
     },
     "An error occurred while running this button."
   );

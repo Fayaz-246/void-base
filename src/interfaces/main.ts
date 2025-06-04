@@ -9,14 +9,15 @@ export interface SlashCommand {
   data: ApplicationCommandDataResolvable;
   run: (
     interaction: ChatInputCommandInteraction,
-    client: myClient,
+    client: myClient
   ) => void | Promise<void>;
 }
 
 export interface ButtonCommand {
-  name: string,
+  name: string;
   run: (
     interaction: ButtonInteraction,
+    args: string[] | null,
     client: myClient
-  ) => void | Promise<void>
+  ) => void | Promise<void>;
 }

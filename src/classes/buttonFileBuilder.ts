@@ -5,6 +5,7 @@ export default class buttonBuilder {
   private _name: string;
   private _run: (
     interaction: ButtonInteraction,
+    args: string[] | null,
     client: myClient
   ) => void | Promise<void>;
 
@@ -21,6 +22,7 @@ export default class buttonBuilder {
   setRun(
     fn: (
       interaction: ButtonInteraction,
+      args: string[] | null,
       client: myClient
     ) => void | Promise<void>
   ) {
