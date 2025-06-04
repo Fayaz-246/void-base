@@ -62,7 +62,6 @@ async function sli(client: myClient) {
   try {
     client.logger.warn("󰇘", "Fetching existing (/) commands...");
     const existing = await client.application?.commands.fetch();
-    console.log(client.commandArray.map((cmd) => cmd));
     const localNames = client.commandArray.map((cmd) => cmd.name);
     const newCommands = [];
     const updatedCommands = [];

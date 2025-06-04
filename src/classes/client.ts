@@ -6,6 +6,7 @@ import {
 } from "discord.js";
 import { readdirSync } from "fs";
 import path from "path";
+import {TimedCache} from 'cachesjs';
 import {
   getAllFiles,
   formatStr,
@@ -49,6 +50,11 @@ export default class myClient extends Client {
     slashCommands: string | null;
     buttons: string | null;
   } = { slashCommands: null, buttons: null };
+
+  public cache = new TimedCache<any>({
+    name: "mainBotCache",
+    defaultTTL: "5m"
+  });
 
   constructor() {
     super({

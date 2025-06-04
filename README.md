@@ -16,4 +16,16 @@ _This Project was built upon the `pnpm` package manager for npm, but you are fre
 
 <h3>Credits:  </h3>
 
-_Made By: [Fayaz](https://fayaz-umber.vercel.app)_
+_Made By: [Fayaz](https://fayaz.is-a.dev/)_
+
+<h2>TODO:</h2>
+
+_Bear in mind this base is still in development so it will take time before all the necessary features are added._
+
+- Select Menus
+
+- Modals
+
+- Context Menus
+
+- Autocomplete support
