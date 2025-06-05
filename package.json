@@ -1,7 +1,7 @@
 {
-  "name": "lunar_bot",
+  "name": "tsbase",
   "version": "0.0.1",
-  "description": "A Discord Bot",
+  "description": "A Discord Bot Base Made in TypeScript.",
   "license": "ISC",
   "author": "Fayaz (i)",
   "type": "commonjs",

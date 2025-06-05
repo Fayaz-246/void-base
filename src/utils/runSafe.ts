@@ -1,4 +1,8 @@
-import { ButtonInteraction, ChatInputCommandInteraction } from "discord.js";
+import {
+  ButtonInteraction,
+  ChatInputCommandInteraction,
+  ModalSubmitInteraction,
+} from "discord.js";
 import { error } from "./logs";
 
 /**
@@ -6,7 +10,10 @@ import { error } from "./logs";
  * and handles errors + interaction response status.
  */
 export default async function runSafe(
-  interaction: ChatInputCommandInteraction | ButtonInteraction,
+  interaction:
+    | ChatInputCommandInteraction
+    | ButtonInteraction
+    | ModalSubmitInteraction,
   fn: () => Promise<void> | void,
   errorMessage = "An error occurred while executing this command."
 ) {

@@ -16,13 +16,13 @@ import {
   delay,
   parseTimeToMs,
 } from "../utils/exports";
-import { ButtonCommand, SlashCommand } from "../interfaces/client";
+import { ButtonCommand, ModalSubmit, SlashCommand } from "../interfaces/client";
 import TimedCache from "../lib/TimedCache";
 
 export default class myClient extends Client {
   public interactions = new Collection<string, SlashCommand>();
   public buttons = new Collection<string, ButtonCommand>();
-  public modals = new Collection<any, any>();
+  public modals = new Collection<string, ModalSubmit>();
 
   // public menus: { string: Collection<any, any> } = {
   //   string: new Collection(),

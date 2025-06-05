@@ -6,7 +6,7 @@ module.exports = new InteractionBuilder()
   .setDescription("To test the button handler")
   .setRun(async (interaction, client) => {
     const button = new ButtonBuilder()
-      .setCustomId("test-ts*testargs*2")
+      .setCustomId("test_ts")
       .setLabel("Test!")
       .setEmoji("✅")
       .setStyle(ButtonStyle.Success);

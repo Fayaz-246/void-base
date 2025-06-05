@@ -2,26 +2,26 @@ import { Interaction } from "discord.js";
 import myClient from "../../classes/client";
 
 async function runBtn(client: myClient, interaction: Interaction) {
-  if (!interaction.isButton()) return;
+  if (!interaction.isModalSubmit()) return;
 
   if (!interaction.guild) {
     if (!interaction.replied && !interaction.deferred) {
       await interaction.reply({
-        content: "Buttons can only be used in guilds",
+        content: "Modals can only be used in guilds",
         flags: 64,
       });
     }
     return;
   }
 
-  const iBtnID = interaction.customId;
-  let args: string[] | undefined = iBtnID.split("-") || undefined;
-  const button = client.buttons.get(args[0]);
+  const iModalId = interaction.customId;
+  let args: string[] | undefined = iModalId.split("-") || undefined;
+  const modal = client.modals.get(args[0]);
 
-  if (!button) {
+  if (!modal) {
     if (!interaction.replied && !interaction.deferred) {
       await interaction.reply({
-        content: "Code not written for this button yet",
+        content: "Code not written for this modal yet",
         flags: 64,
       });
     }
@@ -32,7 +32,7 @@ async function runBtn(client: myClient, interaction: Interaction) {
     interaction,
     async () => {
       if (args != undefined && args.shift() == undefined) args = [];
-      await button.run(interaction, args, client);
+      await modal.run(interaction, args, client);
     },
     "An error occurred while running this button."
   );

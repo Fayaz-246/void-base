@@ -5,7 +5,7 @@ export default class modalFileBuilder {
   private _customId: string;
   private _run: (
     interaction: ModalSubmitInteraction,
-    args: string[] | null,
+    args: string[] | undefined,
     client: myClient
   ) => void | Promise<void>;
 
@@ -22,7 +22,7 @@ export default class modalFileBuilder {
   setRun(
     fn: (
       interaction: ModalSubmitInteraction,
-      args: string[] | null,
+      args: string[] | undefined,
       client: myClient
     ) => void | Promise<void>
   ) {

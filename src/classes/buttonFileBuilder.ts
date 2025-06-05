@@ -5,7 +5,7 @@ export default class buttonFileBuilder {
   private _customId: string;
   private _run: (
     interaction: ButtonInteraction,
-    args: string[] | null,
+    args: string[] | undefined,
     client: myClient
   ) => void | Promise<void>;
 
@@ -22,7 +22,7 @@ export default class buttonFileBuilder {
   setRun(
     fn: (
       interaction: ButtonInteraction,
-      args: string[] | null,
+      args: string[] | undefined,
       client: myClient
     ) => void | Promise<void>
   ) {

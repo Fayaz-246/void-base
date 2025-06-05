@@ -34,4 +34,4 @@ _Bear in mind this base is still in development so it will take time before all 
 
 > So I'll give a proper guide on how to use it l8r but for now clone the repo, compile it run it.
 
-> The args in buttons are separated by `*`. So th args in `testing-btn*5*hi` would be `["5","hi"]`
+> The args in buttons & modals are separated by `-`. So the args in `testing_btn-5-hi` would be `["5","hi"]`
