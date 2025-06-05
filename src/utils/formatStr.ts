@@ -3,5 +3,5 @@
  */
 
 export default function format(str: String) {
-  `${str[0].toUpperCase()}${str.slice(1).toLowerCase()}`;
+  return `${str[0].toUpperCase()}${str.slice(1).toLowerCase()}`;
 }
