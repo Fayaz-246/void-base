@@ -50,7 +50,7 @@ export default class myClient extends Client {
     modals: string | null;
   } = { slashCommands: null, buttons: null, modals: null };
 
-  public cache = new TimedCache<any>({
+  public cache = new TimedCache({
     name: "mainBotCache",
     defaultTTL: "5m",
   });
