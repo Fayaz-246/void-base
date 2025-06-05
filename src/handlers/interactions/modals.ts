@@ -12,11 +12,11 @@ const Colors = {
   Reset: "\x1B[0m",
 };
 
-async function buttonHandler(client: myClient) {
-  const commandsDir = path.join(__dirname, "..", "..", "buttons");
+async function modalHandler(client: myClient) {
+  const commandsDir = path.join(__dirname, "..", "..", "modals");
   const folders = readdirSync(commandsDir);
   const table = new clitable({
-    head: ["Button", "Category", "Status"],
+    head: ["Modal", "Category", "Status"],
     style: { head: ["white"], border: ["gray"] },
     colWidths: [20, 20, 10],
   });
@@ -24,19 +24,19 @@ async function buttonHandler(client: myClient) {
   for (const folder of folders) {
     const files = readdirSync(path.join(commandsDir, folder));
     for (const file of files) {
-      const filepath = `../../buttons/${folder}/${file.slice(0, -3)}`;
-      let button = require(filepath);
-      button = button?.build?.();
+      const filepath = `../../modals/${folder}/${file.slice(0, -3)}`;
+      let modal = require(filepath);
+      modal = modal?.build?.();
 
-      if (button?.customId && button?.run) {
-        client.buttons.set(button.customId, Object.assign(button, { folder }));
+      if (modal?.customId && modal?.run) {
+        client.modals.set(modal.customId, Object.assign(modal, { folder }));
         table.push([
-          `${Colors.Green}${button.customId}${Colors.Reset}`,
+          `${Colors.Green}${modal.customId}${Colors.Reset}`,
           `${Colors.Green}${folder}${Colors.Reset}`,
           `${Colors.Green}${Colors.Reset}`,
         ]);
       } else {
-        client.logger.warn("BUTTONS", `${file} is missing customId or run()`);
+        client.logger.warn("MODALS", `${file} is missing customId or run()`);
         table.push([
           `${Colors.Red}${file}${Colors.Reset}`,
           `${Colors.Red}${folder}${Colors.Reset}`,
@@ -46,7 +46,7 @@ async function buttonHandler(client: myClient) {
     }
   }
 
-  client.tables.buttons = table.toString();
+  client.tables.modals = table.toString();
 }
 
-export default buttonHandler;
+export default modalHandler;

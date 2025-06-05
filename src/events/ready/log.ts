@@ -3,8 +3,11 @@ import myClient from "../../classes/client";
 async function log(client: myClient) {
   client.logger.log("󱜙", `${client.user?.username} is online!`);
   setTimeout(() => {
-    console.log(client.tables.slashCommands);
-    console.log(client.tables.buttons);
+    for (const key of Object.keys(
+      client.tables
+    ) as (keyof typeof client.tables)[]) {
+      console.log(client.tables[key]);
+    }
   }, 2_000);
 }
 

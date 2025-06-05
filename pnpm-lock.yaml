@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      cachesjs:
-        specifier: ^0.0.8
-        version: 0.0.8
       cli-table3:
         specifier: ^0.6.5
         version: 0.6.5
@@ -423,9 +420,6 @@ packages:
   braces@3.0.3:
     resolution: {integrity: sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==}
     engines: {node: '>=8'}
-
-  cachesjs@0.0.8:
-    resolution: {integrity: sha512-wSwKQ2VTiE20zFIMFwBvaA0z5jTejXqUwY3GDZXFZmaxru46wZgQ279G5Wm+wL9Ve9EA72K/cH0y7aON2OT14A==}
 
   callsites@3.1.0:
     resolution: {integrity: sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==}
@@ -1193,8 +1187,6 @@ snapshots:
   braces@3.0.3:
     dependencies:
       fill-range: 7.1.1
-
-  cachesjs@0.0.8: {}
 
   callsites@3.1.0: {}
 

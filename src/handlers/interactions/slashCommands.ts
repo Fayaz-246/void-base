@@ -12,7 +12,7 @@ const Colors = {
   Reset: "\x1B[0m",
 };
 
-async function sli(client: myClient) {
+async function slashCmdHandler(client: myClient) {
   const commandsDir = path.join(__dirname, "..", "..", "slashCommands");
   const folders = readdirSync(commandsDir);
   const table = new clitable({
@@ -115,4 +115,4 @@ async function sli(client: myClient) {
   }
 }
 
-export default sli;
+export default slashCmdHandler;

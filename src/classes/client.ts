@@ -6,7 +6,6 @@ import {
 } from "discord.js";
 import { readdirSync } from "fs";
 import path from "path";
-import {TimedCache} from 'cachesjs';
 import {
   getAllFiles,
   formatStr,
@@ -15,23 +14,21 @@ import {
   runSafe,
   logger,
   delay,
+  parseTimeToMs,
 } from "../utils/exports";
-import { ButtonCommand, SlashCommand } from "../interfaces/main";
+import { ButtonCommand, SlashCommand } from "../interfaces/client";
+import TimedCache from "../lib/TimedCache";
 
 export default class myClient extends Client {
   public interactions = new Collection<string, SlashCommand>();
   public buttons = new Collection<string, ButtonCommand>();
+  public modals = new Collection<any, any>();
 
   // public menus: { string: Collection<any, any> } = {
   //   string: new Collection(),
   // };
 
   public config = { embedColor: "#273051" };
-
-  public caches = {
-    interactions: new Map(),
-    buttons: new Map(),
-  };
 
   public utils = {
     getAllFiles,
@@ -40,6 +37,7 @@ export default class myClient extends Client {
     looselyCheck,
     delay,
     runSafe,
+    parseTimeToMs,
   };
 
   public logger = logger;
@@ -49,11 +47,12 @@ export default class myClient extends Client {
   public tables: {
     slashCommands: string | null;
     buttons: string | null;
-  } = { slashCommands: null, buttons: null };
+    modals: string | null;
+  } = { slashCommands: null, buttons: null, modals: null };
 
   public cache = new TimedCache<any>({
     name: "mainBotCache",
-    defaultTTL: "5m"
+    defaultTTL: "5m",
   });
 
   constructor() {

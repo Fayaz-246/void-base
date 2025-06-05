@@ -14,7 +14,7 @@ export interface SlashCommand {
 }
 
 export interface ButtonCommand {
-  name: string;
+  customId: string;
   run: (
     interaction: ButtonInteraction,
     args: string[] | null,

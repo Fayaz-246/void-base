@@ -1,10 +1,10 @@
-import { ButtonInteraction } from "discord.js";
+import { ModalSubmitInteraction } from "discord.js";
 import myClient from "./client";
 
-export default class buttonFileBuilder {
+export default class modalFileBuilder {
   private _customId: string;
   private _run: (
-    interaction: ButtonInteraction,
+    interaction: ModalSubmitInteraction,
     args: string[] | null,
     client: myClient
   ) => void | Promise<void>;
@@ -21,7 +21,7 @@ export default class buttonFileBuilder {
 
   setRun(
     fn: (
-      interaction: ButtonInteraction,
+      interaction: ModalSubmitInteraction,
       args: string[] | null,
       client: myClient
     ) => void | Promise<void>
