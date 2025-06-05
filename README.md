@@ -24,8 +24,6 @@ _Bear in mind this base is still in development so it will take time before all 
 
 - Select Menus
 
-- Modals
-
 - Context Menus
 
 - Autocomplete support
