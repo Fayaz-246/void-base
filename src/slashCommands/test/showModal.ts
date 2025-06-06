@@ -14,7 +14,7 @@ module.exports = new InteractionBuilder()
       .setCustomId("test_modal")
       .setTitle("Test Modal")
       .addComponents(
-        new ActionRowBuilder().addComponents(
+        new ActionRowBuilder<TextInputBuilder>().addComponents(
           new TextInputBuilder()
             .setCustomId("input")
             .setStyle(TextInputStyle.Short)
