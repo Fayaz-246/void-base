@@ -8,8 +8,9 @@
   "main": "dist/index.js",
   "scripts": {
     "dev": "tsx watch src/index.ts",
+    "start": "node .",
     "build": "tsc",
-    "start": "node ."
+    "build:linux": "rm -rf dist && tsc"
   },
   "dependencies": {
     "cli-table3": "^0.6.5",

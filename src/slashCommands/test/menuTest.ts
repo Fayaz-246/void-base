@@ -18,6 +18,6 @@ module.exports = new InteractionBuilder()
 
     await interaction.reply({
       content: "Les see if dis works!",
-      components: [new ActionRowBuilder().addComponents(select)],
+      components: [new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(select)],
     });
   });

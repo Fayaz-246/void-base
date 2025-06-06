@@ -11,7 +11,7 @@ module.exports = new InteractionBuilder()
       .setEmoji("✅")
       .setStyle(ButtonStyle.Success);
 
-    const row = new ActionRowBuilder().addComponents(button);
+    const row = new ActionRowBuilder<ButtonBuilder>().addComponents(button);
 
     await interaction.reply({
       content: "Les see if dis works!",

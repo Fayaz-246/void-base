@@ -62,11 +62,13 @@ async function slashCmdHandler(client: myClient) {
   try {
     client.logger.warn("󰇘", "Fetching existing (/) commands...");
     const existing = await client.application?.commands.fetch();
+    //@ts-expect-error
     const localNames = client.commandArray.map((cmd) => cmd.name);
     const newCommands = [];
     const updatedCommands = [];
 
     for (const localCmd of client.commandArray) {
+      //@ts-expect-error
       const existingCmd = existing?.find((cmd) => cmd.name === localCmd.name);
       if (!existingCmd) {
         newCommands.push(localCmd);
