@@ -4,7 +4,7 @@
 
 - Uhh idk tbh its just a normal base 🤷
 
-* Also there might be some errors but it works, notably the <>.name does not exist on `ApplicationCommandDataResolvable` :p. If you fix it, make a PR :D
+* Also there might be some errors but it works, notably the <>.name does not exist on `ApplicationCommandDataResolvable` :p. If you fix it, make a PR :D `[ Currently using @ts-expect-error to bypass this but this isn't gud practice and idk what to do ;-; ]`
 
 <h2>How To Use</h2>
 
@@ -21,8 +21,6 @@ _Made By: [Fayaz](https://fayaz.is-a.dev/)_
 <h2>TODO:</h2>
 
 _Bear in mind this base is still in development so it will take time before all the necessary features are added._
-
-- Select Menus
 
 - Context Menus
 
