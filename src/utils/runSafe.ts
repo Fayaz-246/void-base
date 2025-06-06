@@ -1,7 +1,11 @@
 import {
   ButtonInteraction,
+  ChannelSelectMenuInteraction,
   ChatInputCommandInteraction,
   ModalSubmitInteraction,
+  RoleSelectMenuInteraction,
+  StringSelectMenuInteraction,
+  UserSelectMenuInteraction,
 } from "discord.js";
 import { error } from "./logs";
 
@@ -13,7 +17,11 @@ export default async function runSafe(
   interaction:
     | ChatInputCommandInteraction
     | ButtonInteraction
-    | ModalSubmitInteraction,
+    | ModalSubmitInteraction
+    | StringSelectMenuInteraction
+    | RoleSelectMenuInteraction
+    | UserSelectMenuInteraction
+    | ChannelSelectMenuInteraction,
   fn: () => Promise<void> | void,
   errorMessage = "An error occurred while executing this command."
 ) {

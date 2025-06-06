@@ -7,7 +7,7 @@ import {
 import InteractionBuilder from "../../classes/interactionBuilder";
 
 module.exports = new InteractionBuilder()
-  .setName("show-modal")
+  .setName("modal-test")
   .setDescription("To test the modal handler")
   .setRun(async (interaction, client) => {
     const modal = new ModalBuilder()

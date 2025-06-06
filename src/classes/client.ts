@@ -16,17 +16,27 @@ import {
   delay,
   parseTimeToMs,
 } from "../utils/exports";
-import { ButtonCommand, ModalSubmit, SlashCommand } from "../interfaces/client";
+import {
+  ButtonCommand,
+  ChannelSelect,
+  ModalSubmit,
+  RoleSelect,
+  SlashCommand,
+  StringSelect,
+  UserSelect,
+} from "../interfaces/client";
 import TimedCache from "../lib/TimedCache";
 
 export default class myClient extends Client {
   public interactions = new Collection<string, SlashCommand>();
   public buttons = new Collection<string, ButtonCommand>();
   public modals = new Collection<string, ModalSubmit>();
-
-  // public menus: { string: Collection<any, any> } = {
-  //   string: new Collection(),
-  // };
+  public menus = {
+    string: new Collection<string, StringSelect>(),
+    user: new Collection<string, UserSelect>(),
+    channel: new Collection<string, ChannelSelect>(),
+    role: new Collection<string, RoleSelect>(),
+  };
 
   public config = { embedColor: "#273051" };
 
@@ -48,7 +58,8 @@ export default class myClient extends Client {
     slashCommands: string | null;
     buttons: string | null;
     modals: string | null;
-  } = { slashCommands: null, buttons: null, modals: null };
+    menus: string | null;
+  } = { slashCommands: null, buttons: null, modals: null, menus: null };
 
   public cache = new TimedCache({
     name: "mainBotCache",
