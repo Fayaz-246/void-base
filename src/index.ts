@@ -21,4 +21,11 @@ process.on("uncaughtExceptionMonitor", async (err, origin) => {
     `Uncaught Exception Monitor :: ${err.stack} ${origin}`
   );
 });
+let exited = false;
+process.on("SIGINT", async () => {
+  if (exited) return;
+  exited = true;
+  client.logger.error("NODE", `Exiting Process...`);
+  await client.kill();
+});
 /*--------------------------------------*/

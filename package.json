@@ -13,11 +13,13 @@
     "build:linux": "rm -rf dist && tsc"
   },
   "dependencies": {
+    "better-sqlite3": "^11.10.0",
     "cli-table3": "^0.6.5",
     "discord.js": "^14.19.3",
     "dotenv": "^16.5.0"
   },
   "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
     "@types/node": "^22.15.29",
     "globals": "^16.1.0",
     "tsx": "^4.19.4",

@@ -26,6 +26,7 @@ import {
   UserSelect,
 } from "../interfaces/client";
 import TimedCache from "../lib/TimedCache";
+import db from "../lib/db";
 
 export default class myClient extends Client {
   public interactions = new Collection<string, SlashCommand>();
@@ -66,6 +67,8 @@ export default class myClient extends Client {
     defaultTTL: "5m",
   });
 
+  public db = db;
+
   constructor() {
     super({
       intents: ["Guilds", "GuildMessages", "GuildMembers"],
@@ -100,5 +103,12 @@ export default class myClient extends Client {
         }
       });
     });
+  }
+
+  async kill() {
+    this.removeAllListeners();
+    await super.destroy();
+
+    this.db.close();
   }
 }
