@@ -1,8 +1,0 @@
-DONE !! Command Caching ->
-    * Add the command response to the client cache?
-    * Cache the actual command?
-    * HOW THE HELL DO I DO THIS 😭😭😭😭 || I figured it out lolz
-
-Make Everything Faster? Prob :p
-Add Actual Config File xD
-Verbose Logging option for dev 
