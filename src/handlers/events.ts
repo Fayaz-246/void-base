@@ -1,5 +1,5 @@
 import path from "path";
-import { ClientEvents } from "discord.js";
+import { ClientEvents, Events } from "discord.js";
 import myClient from "../classes/client";
 
 function eventHandler(client: myClient): void {
@@ -13,6 +13,12 @@ function eventHandler(client: myClient): void {
     const eventName = path.basename(eventFolder);
 
     if (!eventName) continue;
+    if (client.config.checkEventNames)
+      if (!Object.values(Events).includes(eventName as Events))
+        client.logger.warn(
+          "EVENT CHECKER",
+          `${eventName} isn't a valid event.`
+        );
 
     client.on(eventName as keyof ClientEvents, async (...args) => {
       for (const eventFile of eventFiles) {
