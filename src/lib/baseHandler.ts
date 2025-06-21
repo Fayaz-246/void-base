@@ -12,34 +12,56 @@ const Colors = {
   Reset: "\x1B[0m",
 };
 
-export default function (client: myClient, type: "modals" | "buttons") {
-  const commandsDir = path.join(__dirname, "..", `${type}`);
+interface BaseHandlerOptions {
+  type: "buttons" | "modals" | "menus";
+  rootDir?: string;
+  validateFolder?: (folder: string) => boolean;
+  onValidLoad?: (
+    client: myClient,
+    folder: string,
+    file: string,
+    built: any
+  ) => void;
+}
+
+export default function baseHandler(
+  client: myClient,
+  opts: BaseHandlerOptions
+) {
+  const { type, rootDir, validateFolder, onValidLoad } = opts;
+
+  const commandsDir = rootDir || path.join(__dirname, "..", type);
   const folders = readdirSync(commandsDir);
+
   const table = new clitable({
-    head: [client.utils.formatStr(type), "Category", "Status"],
+    head: [type[0].toUpperCase() + type.slice(1), "Category", "Status"],
     style: { head: ["white"], border: ["gray"] },
     colWidths: [20, 20, 10],
   });
 
   for (const folder of folders) {
+    if (validateFolder && !validateFolder(folder)) {
+      client.logger.error(type.toUpperCase(), `${folder} is invalid.`);
+      continue;
+    }
+
     const files = readdirSync(path.join(commandsDir, folder));
     for (const file of files) {
-      let typeFile = require(`../${type}/${folder}/${file.slice(0, -3)}`);
-      typeFile = typeFile?.build?.();
+      let loaded = require(path.join(commandsDir, folder, file.slice(0, -3)));
+      loaded = loaded?.build?.();
 
-      if (typeFile?.customId && typeFile?.run) {
-        client[type].set(
-          typeFile.customId,
-          Object.assign(typeFile, { folder })
-        );
+      if (loaded?.customId && loaded?.run) {
+        if (onValidLoad) {
+          onValidLoad(client, folder, file, loaded);
+        }
         table.push([
-          `${Colors.Green}${typeFile.customId}${Colors.Reset}`,
+          `${Colors.Green}${loaded.customId}${Colors.Reset}`,
           `${Colors.Green}${folder}${Colors.Reset}`,
           `${Colors.Green}${Colors.Reset}`,
         ]);
       } else {
         client.logger.warn(
-          `${type.toUpperCase()}`,
+          type.toUpperCase(),
           `${file} is missing customId or run()`
         );
         table.push([

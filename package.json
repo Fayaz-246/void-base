@@ -10,7 +10,7 @@
     "dev": "tsx watch src/index.ts",
     "start": "node .",
     "build": "tsc",
-    "build:linux": "rm -rf dist && tsc"
+    "build:unix": "rm -rf dist && tsc"
   },
   "dependencies": {
     "better-sqlite3": "^11.10.0",

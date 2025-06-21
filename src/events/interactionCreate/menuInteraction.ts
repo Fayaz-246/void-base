@@ -12,7 +12,7 @@ import {
   RoleSelect,
   StringSelect,
   UserSelect,
-} from "../../interfaces/client";
+} from "../../interfaces/main";
 
 async function runMenu(client: myClient, interaction: Interaction) {
   if (!interaction.isAnySelectMenu()) return;

@@ -3,7 +3,6 @@ import {
   Partials,
   Collection,
   ApplicationCommandDataResolvable,
-  ColorResolvable,
 } from "discord.js";
 import { readdirSync } from "fs";
 import path from "path";
@@ -25,9 +24,10 @@ import {
   SlashCommand,
   StringSelect,
   UserSelect,
-} from "../interfaces/client";
+} from "../interfaces/main";
 import TimedCache from "../lib/TimedCache";
 import db from "../lib/db";
+import cfg, { BaseConfig } from "../config";
 
 export default class myClient extends Client {
   public interactions = new Collection<string, SlashCommand>();
@@ -40,7 +40,7 @@ export default class myClient extends Client {
     role: new Collection<string, RoleSelect>(),
   };
 
-  public config: { embedColor: ColorResolvable } = { embedColor: "#b5b3b3" };
+  public config: BaseConfig = cfg;
 
   public utils = {
     getAllFiles,
@@ -101,7 +101,9 @@ export default class myClient extends Client {
           if (typeof handlerFile.default === "function")
             handlerFile.default(this);
         } else {
-          const handlerFiles = readdirSync(`${handler.path}/${handler.name}`);
+          const handlerFiles = readdirSync(
+            `${path.join(__dirname, "..", "handlers")}/${handler.name}`
+          );
           handlerFiles.forEach((file) => {
             const fileExec = require(path.join(handlerPath, file));
             if (typeof fileExec.default === "function") fileExec.default(this);

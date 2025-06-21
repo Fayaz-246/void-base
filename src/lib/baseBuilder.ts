@@ -1,13 +1,9 @@
 import { Interaction } from "discord.js";
-import myClient from "../classes/client";
+import { baseRun } from "../interfaces/bases";
 
 export default class baseComponentBuilder<T extends Interaction> {
   protected _customId: string;
-  protected _run: (
-    interaction: T,
-    args: string[] | undefined,
-    client: myClient
-  ) => void | Promise<void>;
+  protected _run: baseRun<T>;
 
   constructor() {
     this._customId = "";
@@ -19,13 +15,7 @@ export default class baseComponentBuilder<T extends Interaction> {
     return this;
   }
 
-  setRun(
-    fn: (
-      interaction: T,
-      args: string[] | undefined,
-      client: myClient
-    ) => void | Promise<void>
-  ) {
+  setRun(fn: baseRun<T>) {
     this._run = fn;
     return this;
   }

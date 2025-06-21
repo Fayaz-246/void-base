@@ -1,5 +1,6 @@
 import {
   Interaction,
+  InteractionEditReplyOptions,
   InteractionReplyOptions,
   MessagePayload,
 } from "discord.js";
@@ -31,22 +32,40 @@ async function runSlashCmd(client: myClient, interaction: Interaction) {
   }
 
   if (command.cached) {
-    if (!client.replyCache.check(interaction.commandName) == false) {
-      const ogReply = interaction.reply.bind(interaction);
-
-      interaction.reply = (async (
-        opts: string | MessagePayload | InteractionReplyOptions
-      ) => {
-        client.replyCache.add(interaction.commandName, opts);
-
-        return await ogReply(opts);
-      }) as typeof interaction.reply;
-    } else
+    if (client.replyCache.check(interaction.commandName))
       return await interaction.reply(
         client.replyCache.get(interaction.commandName)
       );
+
+    const ogReply = interaction.reply.bind(interaction);
+    const ogEdit = interaction.editReply.bind(interaction);
+
+    const saveToCache = (
+      opts:
+        | string
+        | MessagePayload
+        | InteractionReplyOptions
+        | InteractionEditReplyOptions
+    ) => {
+      client.replyCache.add(interaction.commandName, opts);
+    };
+
+    interaction.reply = (async (
+      opts: string | MessagePayload | InteractionReplyOptions
+    ) => {
+      saveToCache(opts);
+      return await ogReply(opts);
+    }) as typeof interaction.reply;
+
+    interaction.editReply = (async (
+      opts: string | MessagePayload | InteractionEditReplyOptions
+    ) => {
+      saveToCache(opts);
+      return await ogEdit(opts);
+    }) as typeof interaction.editReply;
   }
 
+  // Run the actual command
   await client.utils.runSafe(
     interaction,
     async () => {
