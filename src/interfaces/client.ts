@@ -16,6 +16,7 @@ export interface SlashCommand {
     interaction: ChatInputCommandInteraction,
     client: myClient
   ) => void | Promise<void>;
+  cached: boolean;
 }
 
 export interface ButtonCommand {

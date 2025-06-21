@@ -3,6 +3,7 @@ import {
   Partials,
   Collection,
   ApplicationCommandDataResolvable,
+  ColorResolvable,
 } from "discord.js";
 import { readdirSync } from "fs";
 import path from "path";
@@ -39,7 +40,7 @@ export default class myClient extends Client {
     role: new Collection<string, RoleSelect>(),
   };
 
-  public config = { embedColor: "#273051" };
+  public config: { embedColor: ColorResolvable } = { embedColor: "#b5b3b3" };
 
   public utils = {
     getAllFiles,
@@ -65,6 +66,11 @@ export default class myClient extends Client {
   public cache = new TimedCache({
     name: "mainBotCache",
     defaultTTL: "5m",
+  });
+
+  public replyCache = new TimedCache({
+    name: "commandRepliesCache",
+    defaultTTL: "3m",
   });
 
   public db = db;

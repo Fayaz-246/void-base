@@ -1,4 +1,8 @@
-import { Interaction } from "discord.js";
+import {
+  Interaction,
+  InteractionReplyOptions,
+  MessagePayload,
+} from "discord.js";
 import myClient from "../../classes/client";
 
 async function runSlashCmd(client: myClient, interaction: Interaction) {
@@ -24,6 +28,23 @@ async function runSlashCmd(client: myClient, interaction: Interaction) {
       });
     }
     return;
+  }
+
+  if (command.cached) {
+    if (!client.replyCache.check(interaction.commandName) == false) {
+      const ogReply = interaction.reply.bind(interaction);
+
+      interaction.reply = (async (
+        opts: string | MessagePayload | InteractionReplyOptions
+      ) => {
+        client.replyCache.add(interaction.commandName, opts);
+
+        return await ogReply(opts);
+      }) as typeof interaction.reply;
+    } else
+      return await interaction.reply(
+        client.replyCache.get(interaction.commandName)
+      );
   }
 
   await client.utils.runSafe(
