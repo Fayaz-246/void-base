@@ -6,16 +6,7 @@ import {
 } from "discord.js";
 import { readdirSync } from "fs";
 import path from "path";
-import {
-  getAllFiles,
-  formatStr,
-  filterObj,
-  looselyCheck,
-  runSafe,
-  logger,
-  delay,
-  parseTimeToMs,
-} from "../utils/exports";
+import util, { logger } from "../utils/exports";
 import {
   ButtonCommand,
   ChannelSelect,
@@ -42,15 +33,7 @@ export default class myClient extends Client {
 
   public config: BaseConfig = cfg;
 
-  public utils = {
-    getAllFiles,
-    formatStr,
-    filterObj,
-    looselyCheck,
-    delay,
-    runSafe,
-    parseTimeToMs,
-  };
+  public utils = util;
 
   public logger = logger;
 

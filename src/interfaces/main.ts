@@ -2,22 +2,19 @@ import {
   ApplicationCommandDataResolvable,
   ButtonInteraction,
   ChannelSelectMenuInteraction,
-  ChatInputCommandInteraction,
   ModalSubmitInteraction,
   RoleSelectMenuInteraction,
   StringSelectMenuInteraction,
   UserSelectMenuInteraction,
 } from "discord.js";
-import myClient from "../classes/client";
 import { BaseComponentInteraction } from "./bases";
+import { AutoCompleteFunction, SlashCommandRunFunction } from "./interactions";
 
 export interface SlashCommand {
   data: ApplicationCommandDataResolvable;
-  run: (
-    interaction: ChatInputCommandInteraction,
-    client: myClient
-  ) => void | Promise<void>;
+  run: SlashCommandRunFunction;
   cached: boolean;
+  autocomplete?: AutoCompleteFunction;
 }
 
 export type ButtonCommand = BaseComponentInteraction<ButtonInteraction>;

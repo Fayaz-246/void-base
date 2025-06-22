@@ -5,8 +5,8 @@
   <a href="https://github.com/Fayaz-246/void-base">
     <img src="https://img.shields.io/github/stars/Fayaz-246/void-base?style=flat-square" alt="GitHub stars">
   </a>
-  <a href="https://github.com/Fayaz-246/void-base">
-    <img src="https://img.shields.io/github/license/Fayaz-246/void-base?style=flat-square" alt="License">
+  <a href="https://opensource.org/licenses/MIT">
+    <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="License">
   </a>
   <a href="https://discord.js.org">
     <img src="https://img.shields.io/badge/discord.js-14.19.3-blue?style=flat-square&logo=discord" alt="Discord.js">

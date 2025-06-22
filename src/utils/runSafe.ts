@@ -1,4 +1,5 @@
 import {
+  AutocompleteInteraction,
   ButtonInteraction,
   ChannelSelectMenuInteraction,
   ChatInputCommandInteraction,
@@ -12,6 +13,7 @@ import config from "../config";
 
 type SupportedInteractions =
   | ChatInputCommandInteraction
+  | AutocompleteInteraction
   | ButtonInteraction
   | ModalSubmitInteraction
   | StringSelectMenuInteraction
@@ -31,7 +33,10 @@ function getInteractionDetails(interaction: SupportedInteractions): {
 }
 
 function getTypeName(
-  interaction: Exclude<SupportedInteractions, ChatInputCommandInteraction>
+  interaction: Exclude<
+    SupportedInteractions,
+    ChatInputCommandInteraction & AutocompleteInteraction
+  >
 ) {
   if (interaction.isButton()) return "Button";
   if (interaction.isModalSubmit()) return "Modal";
@@ -48,7 +53,7 @@ export default async function runSafe(
   errorMessage = "An error occurred while executing this command."
 ) {
   const { type, name } = getInteractionDetails(interaction);
-  if (config.verbose)
+  if (config.verbose && !interaction.isAutocomplete())
     info(
       `${type} Run`,
       `Name: ${name} || Interaction-ID: ${interaction.id} | User-ID: ${interaction.user.id} | Guild-ID: ${interaction.guildId}`
@@ -59,6 +64,10 @@ export default async function runSafe(
   } catch (err) {
     error(`runSafe Error`, `${err}`);
 
+    if (interaction.isAutocomplete())
+      return await interaction.respond([
+        { name: "RunSafe Error", value: "n/a" },
+      ]);
     if (!interaction.replied && !interaction.deferred) {
       await interaction.reply({
         content: errorMessage,

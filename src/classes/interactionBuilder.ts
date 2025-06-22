@@ -13,18 +13,18 @@ import {
   SlashCommandAttachmentOption,
   SlashCommandSubcommandBuilder,
   SlashCommandSubcommandGroupBuilder,
-  PermissionResolvable,
+  AutocompleteInteraction,
 } from "discord.js";
 import myClient from "./client";
-
-type SlashCommandRunFunction = (
-  interaction: ChatInputCommandInteraction,
-  client: myClient
-) => void | Promise<void>;
+import {
+  AutoCompleteFunction,
+  SlashCommandRunFunction,
+} from "../interfaces/interactions";
 
 export default class InteractionBuilder {
   private builder = new SlashCommandBuilder();
   private runFunction: SlashCommandRunFunction = () => {};
+  private autocompleteFunction: AutoCompleteFunction = () => {};
   private isCached = false;
 
   setName(name: string) {
@@ -43,6 +43,7 @@ export default class InteractionBuilder {
     this.builder.setDMPermission(permission);
     return this;
   }
+  <!---------------------->
   */
 
   setDefaultMemberPermissions(
@@ -142,13 +143,13 @@ export default class InteractionBuilder {
     return this;
   }
 
-  setRun(
-    fn: (
-      interaction: ChatInputCommandInteraction,
-      client: myClient
-    ) => void | Promise<void>
-  ) {
+  setRun(fn: SlashCommandRunFunction) {
     this.runFunction = fn;
+    return this;
+  }
+
+  setAutocomplete(fn: AutoCompleteFunction) {
+    this.autocompleteFunction = fn;
     return this;
   }
 
@@ -161,11 +162,13 @@ export default class InteractionBuilder {
     data: RESTPostAPIApplicationCommandsJSONBody;
     run: SlashCommandRunFunction;
     cached: boolean;
+    autocomplete?: AutoCompleteFunction;
   } {
     return {
       data: this.builder.toJSON(),
       run: this.runFunction,
       cached: this.isCached,
+      autocomplete: this.autocompleteFunction,
     };
   }
 }

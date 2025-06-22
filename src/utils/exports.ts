@@ -6,10 +6,11 @@ import runSafe from "./runSafe";
 import { log, warn, error, info, success } from "./logs";
 import delay from "./delay";
 import parseTimeToMs from "./parseTimeToMs";
+import resolveCommandJSON from "./resolveCommandJSON";
 
-const logger = { log, warn, error, info, success };
+export const logger = { log, warn, error, info, success };
 
-export {
+const util = {
   formatStr,
   getAllFiles,
   filterObj,
@@ -17,5 +18,7 @@ export {
   runSafe,
   delay,
   parseTimeToMs,
-  logger,
+  resolveCommandJSON,
 };
+
+export default util;
