@@ -5,6 +5,9 @@
   <a href="https://github.com/Fayaz-246/void-base">
     <img src="https://img.shields.io/github/stars/Fayaz-246/void-base?style=flat-square" alt="GitHub stars">
   </a>
+  <a href="https://github.com/Fayaz-246/void-base/actions">
+    <img src="https://img.shields.io/github/actions/workflow/status/Fayaz-246/void-base/format.yaml?label=GitHub Actions&style=flat-square" alt="GitHub Actions">
+  </a>
   <a href="https://opensource.org/licenses/MIT">
     <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="License">
   </a>

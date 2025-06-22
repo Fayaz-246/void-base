@@ -59,6 +59,11 @@ export default class myClient extends Client {
       partials: [Partials.User, Partials.GuildMember, Partials.Message],
     });
 
+    if (!process.env.TOKEN) {
+      this.logger.error("TOKEN", 'No "TOKEN" in .env file');
+      process.exit(1);
+    }
+
     this.start(process.env.TOKEN!);
   }
 
