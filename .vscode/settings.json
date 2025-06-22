@@ -1,5 +1,13 @@
 {
   "typescript.tsdk": "node_modules/typescript/lib",
-  "cSpell.words": ["AUTOINCREMENT", "cachesjs", "clitable", "Fayaz", "tsbase", "uncategorized"],
+  "cSpell.words": [
+    "AUTOINCREMENT",
+    "cachesjs",
+    "clitable",
+    "DEPRECEATED",
+    "Fayaz",
+    "tsbase",
+    "uncategorized"
+  ],
   "discord.enabled": true
 }

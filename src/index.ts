@@ -15,6 +15,13 @@ process.on("uncaughtException", async (error) => {
 process.on("uncaughtExceptionMonitor", async (err, origin) => {
   client.logger.error("NODE", `Uncaught Exception Monitor :: ${err.stack} ${origin}`);
 });
+process.on("warning", (warning) => {
+  client.logger.warn(
+    "NODE",
+    `Node Warning: ${warning.name} - ${warning.message}\n${warning.stack}`
+  );
+});
+/*--------------------------------------*/
 let exited = false;
 process.on("SIGINT", async () => {
   if (exited) return;
@@ -27,11 +34,5 @@ process.on("SIGTERM", async () => {
   exited = true;
   client.logger.warn("NODE", "Received SIGTERM, exiting...");
   await client.kill();
-});
-process.on("warning", (warning) => {
-  client.logger.warn(
-    "NODE",
-    `Node Warning: ${warning.name} - ${warning.message}\n${warning.stack}`
-  );
 });
 /*--------------------------------------*/

@@ -1,7 +1,10 @@
 import {
   AutocompleteInteraction,
+  BitFieldResolvable,
   ChatInputCommandInteraction,
   InteractionResponse,
+  MessageFlags,
+  MessageFlagsString,
 } from "discord.js";
 import myClient from "../classes/client";
 
@@ -14,3 +17,7 @@ export type AutoCompleteFunction = (
   interaction: AutocompleteInteraction,
   client?: myClient
 ) => void | Promise<void>;
+
+export type InteractionFlags =
+  | BitFieldResolvable<Extract<MessageFlagsString, "Ephemeral">, MessageFlags.Ephemeral>
+  | undefined;

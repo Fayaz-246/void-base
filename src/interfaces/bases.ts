@@ -1,6 +1,6 @@
 import myClient from "../classes/client";
 
-export type baseRun<T> = (
+export type baseComponentRun<T> = (
   interaction: T,
   args: string[] | undefined,
   client: myClient
@@ -8,5 +8,5 @@ export type baseRun<T> = (
 
 export interface BaseComponentInteraction<T> {
   customId: string;
-  run: baseRun<T>;
+  run: baseComponentRun<T>;
 }

@@ -1,7 +1,5 @@
 import {
-  ChatInputCommandInteraction,
   SlashCommandBuilder,
-  RESTPostAPIApplicationCommandsJSONBody,
   SlashCommandStringOption,
   SlashCommandUserOption,
   SlashCommandBooleanOption,
@@ -13,16 +11,21 @@ import {
   SlashCommandAttachmentOption,
   SlashCommandSubcommandBuilder,
   SlashCommandSubcommandGroupBuilder,
-  AutocompleteInteraction,
 } from "discord.js";
-import myClient from "./client";
-import { AutoCompleteFunction, SlashCommandRunFunction } from "../interfaces/interactions";
+import {
+  AutoCompleteFunction,
+  InteractionFlags,
+  SlashCommandRunFunction,
+} from "../interfaces/interactions";
+import { SlashCommand } from "../interfaces/main";
 
 export default class InteractionBuilder {
   private builder = new SlashCommandBuilder();
   private runFunction: SlashCommandRunFunction = () => {};
   private autocompleteFunction: AutoCompleteFunction = () => {};
   private isCached = false;
+  private deferred = false;
+  private deferFlags: InteractionFlags;
 
   setName(name: string) {
     this.builder.setName(name);
@@ -131,17 +134,24 @@ export default class InteractionBuilder {
     return this;
   }
 
-  build(): {
-    data: RESTPostAPIApplicationCommandsJSONBody;
-    run: SlashCommandRunFunction;
-    cached: boolean;
-    autocomplete?: AutoCompleteFunction;
-  } {
+  setDeferred(deferred: boolean) {
+    this.deferred = deferred;
+    return this;
+  }
+
+  setDeferFlags(flags: InteractionFlags) {
+    this.deferFlags = flags;
+    return this;
+  }
+
+  build(): SlashCommand {
     return {
       data: this.builder.toJSON(),
       run: this.runFunction,
       cached: this.isCached,
       autocomplete: this.autocompleteFunction,
+      deferred: this.deferred,
+      deferFlags: this.deferFlags,
     };
   }
 }

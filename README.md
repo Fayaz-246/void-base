@@ -80,10 +80,14 @@ Configuration is done in `src/config.ts`. Using TypeScript for config gives you 
 
 ```ts
 interface BaseConfig {
-  embedColor: ColorResolvable;
-  verbose: boolean;
-  checkEventNames: boolean;
-  logTables: boolean;
+  embedColor: ColorResolvable; // Default embed color
+  errorColor: ColorResolvable; // Embed color for errors
+  warnColor: ColorResolvable; // Embed color for warning messages
+  successColor: ColorResolvable; // Embed color for success responses
+  verbose: boolean; // Log every interaction
+  checkEventNames: boolean; // Check if the events in src/events are valid
+  logTables: boolean; // Log the tables of every registered interaction / component
+  requireGuildOnly: boolean; // Make all interactions & components only usable in guilds
 }
 ```
 
@@ -121,7 +125,9 @@ import InteractionBuilder from "../../classes/interactionBuilder";
 module.exports = new InteractionBuilder()
   .setName("test")
   .setDescription("An example command")
-  // .setCached(true)
+  // .setCached(true)      // Enable caching (optional)
+  // .setDefer(true)       // Auto-defer reply (optional)
+  // .setDeferFlags(64)    // Flags to use with auto-defer (optional)
   .setRun(async (interaction, client) => {
     await interaction.reply({ content: "Heyo!", flags: 64 });
   });
@@ -131,10 +137,26 @@ module.exports = new InteractionBuilder()
 
 The `InteractionBuilder` class is similar to `SlashCommandBuilder` with added methods:
 
-- `.setCached(boolean)`
 - `.setRun(callback)`
-- `.build()`
 - `.setAutocomplete(callback)`
+- `.setCached(boolean)`
+- `.setDefer(boolean)`
+- `.setDeferFlags(int)`
+- `.build()`
+
+#### Notes on Auto-Defer + Caching
+
+If you enable both `.setCached(true)` and `.setDefer(true)`, then:
+`.setDeferFlags(...)` will not be preserved in the final `.reply()` call.
+You must manually include flags again inside your `.setRun()` reply to ensure proper visibility (e.g. ephemeral).
+
+```ts
+// In a deferred & cached commands setRun method
+await interaction.reply({
+  content: "Cached response!",
+  flags: 64, // Required again even if .setDeferFlags(64) was used
+});
+```
 
 ---
 

@@ -1,4 +1,5 @@
 import {
+  EmbedBuilder,
   Interaction,
   InteractionEditReplyOptions,
   InteractionReplyOptions,
@@ -9,33 +10,16 @@ import myClient from "../../classes/client";
 async function runSlashCmd(client: myClient, interaction: Interaction) {
   if (!interaction.isChatInputCommand()) return;
 
-  if (!interaction.guild) {
-    if (!interaction.replied && !interaction.deferred) {
-      await interaction.reply({
-        content: "/ Commands can only be used in guilds",
-        flags: 64,
-      });
-    }
-    return;
-  }
+  if (!(await client.utils.handleGuildCheck(client, interaction))) return;
 
   const command = client.interactions.get(interaction.commandName);
 
-  if (!command) {
-    if (!interaction.replied && !interaction.deferred) {
-      await interaction.reply({
-        content: "Code not written for this (/) command yet",
-        flags: 64,
-      });
-    }
-    return;
-  }
+  if (!command) return await client.utils.handleNoCode(interaction);
 
   if (command.cached) {
     const canCache =
       interaction.options.data.length === 0 || interaction.options.data.every((opt) => !opt.value);
 
-    // console.log(canCache, client.replyCache.check(interaction.commandName));
     if (canCache && client.replyCache.check(interaction.commandName)) {
       return await interaction.reply(client.replyCache.get(interaction.commandName));
     }
@@ -62,6 +46,17 @@ async function runSlashCmd(client: myClient, interaction: Interaction) {
         return await ogEdit(opts);
       }) as typeof interaction.editReply;
     }
+  }
+
+  if (command.deferred && !interaction.deferred && !interaction.replied) {
+    await interaction.deferReply({ flags: command.deferFlags });
+
+    const ogEdit = interaction.editReply.bind(interaction);
+
+    interaction.reply = (async (opts: string | MessagePayload | InteractionEditReplyOptions) => {
+      interaction.replied = true;
+      return await ogEdit(opts);
+    }) as unknown as typeof interaction.reply;
   }
 
   // Run the actual command

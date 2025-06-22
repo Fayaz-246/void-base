@@ -1,9 +1,9 @@
 import { Interaction } from "discord.js";
-import { baseRun } from "../interfaces/bases";
+import { BaseComponentInteraction, baseComponentRun } from "../interfaces/bases";
 
 export default class baseComponentBuilder<T extends Interaction> {
   protected _customId: string;
-  protected _run: baseRun<T>;
+  protected _run: baseComponentRun<T>;
 
   constructor() {
     this._customId = "";
@@ -15,12 +15,12 @@ export default class baseComponentBuilder<T extends Interaction> {
     return this;
   }
 
-  setRun(fn: baseRun<T>) {
+  setRun(fn: baseComponentRun<T>) {
     this._run = fn;
     return this;
   }
 
-  build() {
+  build(): BaseComponentInteraction<T> {
     return {
       customId: this._customId,
       run: this._run,

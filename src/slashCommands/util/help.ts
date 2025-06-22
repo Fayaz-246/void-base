@@ -8,6 +8,8 @@ module.exports = new InteractionBuilder()
     option.setName("command").setDescription("Search for a specific command").setAutocomplete(true)
   )
   .setCached(true)
+  .setDeferred(true)
+  .setDeferFlags(64)
   .setAutocomplete(async (interaction, client) => {
     const focused = interaction.options.getFocused().toLowerCase();
 

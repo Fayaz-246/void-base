@@ -12,15 +12,7 @@ import { ChannelSelect, RoleSelect, StringSelect, UserSelect } from "../../inter
 async function runMenu(client: myClient, interaction: Interaction) {
   if (!interaction.isAnySelectMenu()) return;
 
-  if (!interaction.guild) {
-    if (!interaction.replied && !interaction.deferred) {
-      await interaction.reply({
-        content: "Select Menus can only be used in guilds",
-        flags: 64,
-      });
-    }
-    return;
-  }
+  if (!(await client.utils.handleGuildCheck(client, interaction))) return;
 
   const menuTypes = {
     [ComponentType.StringSelect]: "string",
@@ -36,15 +28,7 @@ async function runMenu(client: myClient, interaction: Interaction) {
   const menuType = menuTypes[interaction.componentType as keyof typeof menuTypes];
   const menu = getMenu(client, menuType, args[0]);
 
-  if (!menu) {
-    if (!interaction.replied && !interaction.deferred) {
-      await interaction.reply({
-        content: "Code not written for this menu yet",
-        flags: 64,
-      });
-    }
-    return;
-  }
+  if (!menu) return await client.utils.handleNoCode(interaction);
 
   if (args.shift() == undefined) args = [];
 

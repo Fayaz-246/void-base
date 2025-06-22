@@ -4,29 +4,13 @@ import myClient from "../../classes/client";
 async function runBtn(client: myClient, interaction: Interaction) {
   if (!interaction.isButton()) return;
 
-  if (!interaction.guild) {
-    if (!interaction.replied && !interaction.deferred) {
-      await interaction.reply({
-        content: "Buttons can only be used in guilds",
-        flags: 64,
-      });
-    }
-    return;
-  }
+  if (!(await client.utils.handleGuildCheck(client, interaction))) return;
 
   const iBtnID = interaction.customId;
   let args: string[] | undefined = iBtnID.split("-") || undefined;
   const button = client.buttons.get(args[0]);
 
-  if (!button) {
-    if (!interaction.replied && !interaction.deferred) {
-      await interaction.reply({
-        content: "Code not written for this button yet",
-        flags: 64,
-      });
-    }
-    return;
-  }
+  if (!button) return await client.utils.handleNoCode(interaction);
 
   await client.utils.runSafe(
     interaction,
