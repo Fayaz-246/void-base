@@ -124,6 +124,8 @@ module.exports = new InteractionBuilder()
   .setRun(async (interaction, client) => {
     await interaction.reply({ content: "Heyo!", flags: 64 });
   });
+
+// .setAutocomplete(async (interaction, client) => {})
 ```
 
 The `InteractionBuilder` class is similar to `SlashCommandBuilder` with added methods:
@@ -131,6 +133,7 @@ The `InteractionBuilder` class is similar to `SlashCommandBuilder` with added me
 - `.setCached(boolean)`
 - `.setRun(callback)`
 - `.build()`
+- `.setAutocomplete(callback)`
 
 ---
 
