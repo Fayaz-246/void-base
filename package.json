@@ -1,6 +1,6 @@
 {
   "name": "void-base",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A Discord Bot Base Made in TypeScript.",
   "author": "Fayaz (i)",
   "type": "commonjs",
