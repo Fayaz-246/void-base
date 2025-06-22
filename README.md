@@ -33,6 +33,7 @@
     - [Menus](#menus)
   - [Events](#events)
   - [Database (DB)](#database-db)
+- [Contributing](#contributing)
 
 ---
 
@@ -226,3 +227,21 @@ Void Base uses SQLite for simplicity and speed.
 
 - Define tables in `src/lib/db.ts`
 - Access the DB via `client.db` inside your command files.
+
+## Contributing
+
+Contributions are welcome! If you'd like to improve this base, add new features, fix bugs, or suggest ideas — feel free to fork the repo and open a pull request.
+
+Please try to follow the existing code style, and write clear commit messages.
+
+- Don't commit huge changes across multiple files at once.
+
+> Even small improvements like typo fixes or better docs are appreciated :)
+
+```sh
+1. Fork the repository
+2. Create a new branch (`git checkout -b your-feature`)
+3. Commit your changes (`git commit -m "Added awesome feature"`)
+4. Push to the branch (`git push origin your-feature`)
+5. Open a pull request
+```
