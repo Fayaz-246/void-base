@@ -22,4 +22,16 @@ process.on("SIGINT", async () => {
   client.logger.error("NODE", `Exiting Process...`);
   await client.kill();
 });
+process.on("SIGTERM", async () => {
+  if (exited) return;
+  exited = true;
+  client.logger.warn("NODE", "Received SIGTERM, exiting...");
+  await client.kill();
+});
+process.on("warning", (warning) => {
+  client.logger.warn(
+    "NODE",
+    `Node Warning: ${warning.name} - ${warning.message}\n${warning.stack}`
+  );
+});
 /*--------------------------------------*/

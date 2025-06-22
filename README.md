@@ -242,6 +242,8 @@ Please try to follow the existing code style, and write clear commit messages.
 
 > Even small improvements like typo fixes or better docs are appreciated :)
 
+> Make sure you run `npm run format` before committing!
+
 ```sh
 1. Fork the repository
 2. Create a new branch (`git checkout -b your-feature`)
