@@ -33,14 +33,11 @@ async function runSlashCmd(client: myClient, interaction: Interaction) {
 
   if (command.cached) {
     const canCache =
-      interaction.options.data.length === 0 ||
-      interaction.options.data.every((opt) => !opt.value);
+      interaction.options.data.length === 0 || interaction.options.data.every((opt) => !opt.value);
 
     // console.log(canCache, client.replyCache.check(interaction.commandName));
     if (canCache && client.replyCache.check(interaction.commandName)) {
-      return await interaction.reply(
-        client.replyCache.get(interaction.commandName)
-      );
+      return await interaction.reply(client.replyCache.get(interaction.commandName));
     }
 
     if (canCache) {
@@ -48,18 +45,12 @@ async function runSlashCmd(client: myClient, interaction: Interaction) {
       const ogEdit = interaction.editReply.bind(interaction);
 
       const saveToCache = (
-        opts:
-          | string
-          | MessagePayload
-          | InteractionReplyOptions
-          | InteractionEditReplyOptions
+        opts: string | MessagePayload | InteractionReplyOptions | InteractionEditReplyOptions
       ) => {
         client.replyCache.add(interaction.commandName, opts);
       };
 
-      interaction.reply = (async (
-        opts: string | MessagePayload | InteractionReplyOptions
-      ) => {
+      interaction.reply = (async (opts: string | MessagePayload | InteractionReplyOptions) => {
         saveToCache(opts);
         return await ogReply(opts);
       }) as typeof interaction.reply;

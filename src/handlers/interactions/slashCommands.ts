@@ -31,10 +31,7 @@ async function slashCmdHandler(client: myClient) {
       command = command?.build?.();
 
       if (command?.data && command?.run) {
-        client.interactions.set(
-          command.data.name,
-          Object.assign(command, { folder })
-        );
+        client.interactions.set(command.data.name, Object.assign(command, { folder }));
         client.commandArray.push(client.utils.filterObj(command.data));
         table.push([
           `${Colors.Green}${command.data.name}${Colors.Reset}`,
@@ -53,10 +50,7 @@ async function slashCmdHandler(client: myClient) {
   }
 
   if (!client.commandArray.length) {
-    return client.logger.error(
-      "SLASH CMDS",
-      `Aborting (/) registration: No commands found.`
-    );
+    return client.logger.error("SLASH CMDS", `Aborting (/) registration: No commands found.`);
   }
 
   try {
@@ -80,15 +74,10 @@ async function slashCmdHandler(client: myClient) {
     }
 
     const toDelete =
-      existing
-        ?.filter((cmd) => !localNames.includes(cmd.name))
-        .map((cmd) => cmd) || [];
+      existing?.filter((cmd) => !localNames.includes(cmd.name)).map((cmd) => cmd) || [];
 
     if (toDelete.length > 0) {
-      client.logger.error(
-        "",
-        `Deleting ${toDelete.length} stale command(s)...`
-      );
+      client.logger.error("", `Deleting ${toDelete.length} stale command(s)...`);
       for (const cmd of toDelete) {
         await client.application?.commands.delete(cmd.id);
         console.log(`${Colors.Red}  ↳ Deleted: ${cmd.name}${Colors.Reset}`);
@@ -96,19 +85,13 @@ async function slashCmdHandler(client: myClient) {
     }
     const toRegister = [...newCommands, ...updatedCommands];
     if (toRegister.length === 0) {
-      client.logger.success(
-        "",
-        "No command changes. Skipping (/) registration."
-      );
+      client.logger.success("", "No command changes. Skipping (/) registration.");
     } else {
       client.logger.warn("󰇘", `${toRegister.length} new/updated commands...`);
       await client.application?.commands.set([
         ...client.commandArray, // send full clean state
       ]);
-      client.logger.success(
-        "",
-        `Successfully refreshed ${toRegister.length} (/) commands.`
-      );
+      client.logger.success("", `Successfully refreshed ${toRegister.length} (/) commands.`);
     }
 
     client.tables.slashCommands = table.toString();

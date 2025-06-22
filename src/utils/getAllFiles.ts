@@ -5,10 +5,7 @@
 import fs from "fs";
 import path from "path";
 
-export default function getAllFiles(
-  dir: string,
-  foldersOnly: boolean = false,
-): string[] {
+export default function getAllFiles(dir: string, foldersOnly: boolean = false): string[] {
   const fileNames: string[] = [];
 
   const files = fs.readdirSync(dir, { withFileTypes: true });

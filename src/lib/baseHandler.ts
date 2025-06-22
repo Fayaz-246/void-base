@@ -16,18 +16,10 @@ interface BaseHandlerOptions {
   type: "buttons" | "modals" | "menus";
   rootDir?: string;
   validateFolder?: (folder: string) => boolean;
-  onValidLoad?: (
-    client: myClient,
-    folder: string,
-    file: string,
-    built: any
-  ) => void;
+  onValidLoad?: (client: myClient, folder: string, file: string, built: any) => void;
 }
 
-export default function baseHandler(
-  client: myClient,
-  opts: BaseHandlerOptions
-) {
+export default function baseHandler(client: myClient, opts: BaseHandlerOptions) {
   const { type, rootDir, validateFolder, onValidLoad } = opts;
 
   const commandsDir = rootDir || path.join(__dirname, "..", type);
@@ -60,10 +52,7 @@ export default function baseHandler(
           `${Colors.Green}${Colors.Reset}`,
         ]);
       } else {
-        client.logger.warn(
-          type.toUpperCase(),
-          `${file} is missing customId or run()`
-        );
+        client.logger.warn(type.toUpperCase(), `${file} is missing customId or run()`);
         table.push([
           `${Colors.Red}${file}${Colors.Reset}`,
           `${Colors.Red}${folder}${Colors.Reset}`,

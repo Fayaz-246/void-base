@@ -19,9 +19,7 @@ export interface SlashCommand {
 
 export type ButtonCommand = BaseComponentInteraction<ButtonInteraction>;
 export type ModalSubmit = BaseComponentInteraction<ModalSubmitInteraction>;
-export type StringSelect =
-  BaseComponentInteraction<StringSelectMenuInteraction>;
+export type StringSelect = BaseComponentInteraction<StringSelectMenuInteraction>;
 export type RoleSelect = BaseComponentInteraction<RoleSelectMenuInteraction>;
 export type UserSelect = BaseComponentInteraction<UserSelectMenuInteraction>;
-export type ChannelSelect =
-  BaseComponentInteraction<ChannelSelectMenuInteraction>;
+export type ChannelSelect = BaseComponentInteraction<ChannelSelectMenuInteraction>;

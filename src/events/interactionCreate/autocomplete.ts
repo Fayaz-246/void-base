@@ -6,8 +6,7 @@ export default async function runSlashCommandAutoComplete(
   interaction: Interaction
 ) {
   if (!interaction.isAutocomplete()) return;
-  if (!interaction.guild)
-    return await interaction.respond([{ name: "Disallowed", value: "n/a" }]);
+  if (!interaction.guild) return await interaction.respond([{ name: "Disallowed", value: "n/a" }]);
 
   const command = client.interactions.get(interaction.commandName);
   if (!command || !command.autocomplete)

@@ -9,13 +9,15 @@
     "dev": "tsx watch src/index.ts",
     "start": "node .",
     "build": "tsc",
-    "build:unix": "rm -rf dist && tsc"
+    "build:unix": "rm -rf dist && tsc",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "better-sqlite3": "^11.10.0",
     "cli-table3": "^0.6.5",
     "discord.js": "^14.19.3",
-    "dotenv": "^16.5.0"
+    "dotenv": "^16.5.0",
+    "prettier": "^3.5.3"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.13",

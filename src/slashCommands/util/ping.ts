@@ -18,11 +18,9 @@ module.exports = new InteractionBuilder()
         },
         {
           name: "Bot Latency: ",
-          value: `\`\`\`${
-            message.createdTimestamp - interaction.createdTimestamp
-          }ms\`\`\``,
+          value: `\`\`\`${message.createdTimestamp - interaction.createdTimestamp}ms\`\`\``,
           inline: true,
-        },
+        }
       )
       .setTimestamp()
       .setFooter({

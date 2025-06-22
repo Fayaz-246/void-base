@@ -7,12 +7,7 @@ import {
   UserSelectMenuInteraction,
 } from "discord.js";
 import myClient from "../../classes/client";
-import {
-  ChannelSelect,
-  RoleSelect,
-  StringSelect,
-  UserSelect,
-} from "../../interfaces/main";
+import { ChannelSelect, RoleSelect, StringSelect, UserSelect } from "../../interfaces/main";
 
 async function runMenu(client: myClient, interaction: Interaction) {
   if (!interaction.isAnySelectMenu()) return;
@@ -38,8 +33,7 @@ async function runMenu(client: myClient, interaction: Interaction) {
 
   const iSelectID = interaction.customId;
   let args: string[] = iSelectID.split("-") || [];
-  const menuType =
-    menuTypes[interaction.componentType as keyof typeof menuTypes];
+  const menuType = menuTypes[interaction.componentType as keyof typeof menuTypes];
   const menu = getMenu(client, menuType, args[0]);
 
   if (!menu) {
@@ -57,42 +51,30 @@ async function runMenu(client: myClient, interaction: Interaction) {
   switch (interaction.componentType) {
     case ComponentType.StringSelect:
       const m = menu as StringSelect;
-      await client.utils.runSafe(
-        interaction as StringSelectMenuInteraction,
-        async () => {
-          await m.run(interaction, args, client);
-        }
-      );
+      await client.utils.runSafe(interaction as StringSelectMenuInteraction, async () => {
+        await m.run(interaction, args, client);
+      });
       break;
 
     case ComponentType.RoleSelect:
-      await client.utils.runSafe(
-        interaction as RoleSelectMenuInteraction,
-        async () => {
-          const m = menu as RoleSelect;
-          await m.run(interaction, args, client);
-        }
-      );
+      await client.utils.runSafe(interaction as RoleSelectMenuInteraction, async () => {
+        const m = menu as RoleSelect;
+        await m.run(interaction, args, client);
+      });
       break;
 
     case ComponentType.UserSelect:
-      await client.utils.runSafe(
-        interaction as UserSelectMenuInteraction,
-        async () => {
-          const m = menu as UserSelect;
-          await m.run(interaction, args, client);
-        }
-      );
+      await client.utils.runSafe(interaction as UserSelectMenuInteraction, async () => {
+        const m = menu as UserSelect;
+        await m.run(interaction, args, client);
+      });
       break;
 
     case ComponentType.ChannelSelect:
-      await client.utils.runSafe(
-        interaction as ChannelSelectMenuInteraction,
-        async () => {
-          const m = menu as ChannelSelect;
-          await m.run(interaction, args, client);
-        }
-      );
+      await client.utils.runSafe(interaction as ChannelSelectMenuInteraction, async () => {
+        const m = menu as ChannelSelect;
+        await m.run(interaction, args, client);
+      });
       break;
   }
 }

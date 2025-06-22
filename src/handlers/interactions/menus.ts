@@ -14,10 +14,7 @@ export default function menuHandler(client: myClient) {
     },
     onValidLoad: (client, folder, _file, loaded) => {
       const lower = folder.toLowerCase() as menuType;
-      client.menus[lower].set(
-        loaded.customId,
-        Object.assign(loaded, { folder })
-      );
+      client.menus[lower].set(loaded.customId, Object.assign(loaded, { folder }));
     },
   });
 }

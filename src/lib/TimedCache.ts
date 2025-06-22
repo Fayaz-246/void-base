@@ -1,7 +1,4 @@
-import {
-  ITimedCacheConstructorOps,
-  ExpireCallback,
-} from "../interfaces/caches";
+import { ITimedCacheConstructorOps, ExpireCallback } from "../interfaces/caches";
 import { error, warn } from "../utils/logs";
 import parseTimeToMs from "../utils/parseTimeToMs";
 
@@ -23,10 +20,7 @@ export default class TimedCache<V = any> {
     if (options.onExpire) this.onExpire = options.onExpire;
 
     if (!options.defaultTTL)
-      warn(
-        "CACHES",
-        `${this.name} Timed Cache |  No TTL set, using default. [ 5m ]`
-      );
+      warn("CACHES", `${this.name} Timed Cache |  No TTL set, using default. [ 5m ]`);
     this.defaultTTL = parseTimeToMs(options.defaultTTL || "5m");
   }
 
@@ -48,10 +42,7 @@ export default class TimedCache<V = any> {
 
   get(key: string): V | undefined {
     if (!this.cache.has(key)) {
-      error(
-        "CACHES",
-        `${this.name} | Timed Cache does not have key '${key}' to get`
-      );
+      error("CACHES", `${this.name} | Timed Cache does not have key '${key}' to get`);
       return undefined;
     }
     return this.cache.get(key);
@@ -59,10 +50,7 @@ export default class TimedCache<V = any> {
 
   delete(key: string): boolean {
     if (!this.check(key)) {
-      error(
-        "CACHES",
-        `${this.name} | Timed Cache does not have key '${key}' to delete.`
-      );
+      error("CACHES", `${this.name} | Timed Cache does not have key '${key}' to delete.`);
       return false;
     }
 

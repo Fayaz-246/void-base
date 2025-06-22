@@ -1,8 +1,6 @@
 import { ApplicationCommandDataResolvable } from "discord.js";
 
-export default function resolveCommandJSON(
-  data: ApplicationCommandDataResolvable
-): {
+export default function resolveCommandJSON(data: ApplicationCommandDataResolvable): {
   name: string;
   description: string;
   [key: string]: any;

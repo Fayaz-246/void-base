@@ -25,18 +25,14 @@ function getInteractionDetails(interaction: SupportedInteractions): {
   type: string;
   name: string;
 } {
-  if ("commandName" in interaction)
-    return { type: "Slash Command", name: interaction.commandName };
+  if ("commandName" in interaction) return { type: "Slash Command", name: interaction.commandName };
   if ("customId" in interaction)
     return { type: getTypeName(interaction), name: interaction.customId };
   return { type: "Unknown", name: "N/A" };
 }
 
 function getTypeName(
-  interaction: Exclude<
-    SupportedInteractions,
-    ChatInputCommandInteraction & AutocompleteInteraction
-  >
+  interaction: Exclude<SupportedInteractions, ChatInputCommandInteraction & AutocompleteInteraction>
 ) {
   if (interaction.isButton()) return "Button";
   if (interaction.isModalSubmit()) return "Modal";
@@ -65,9 +61,7 @@ export default async function runSafe(
     error(`runSafe Error`, `${err}`);
 
     if (interaction.isAutocomplete())
-      return await interaction.respond([
-        { name: "RunSafe Error", value: "n/a" },
-      ]);
+      return await interaction.respond([{ name: "RunSafe Error", value: "n/a" }]);
     if (!interaction.replied && !interaction.deferred) {
       await interaction.reply({
         content: errorMessage,

@@ -16,10 +16,7 @@ import {
   AutocompleteInteraction,
 } from "discord.js";
 import myClient from "./client";
-import {
-  AutoCompleteFunction,
-  SlashCommandRunFunction,
-} from "../interfaces/interactions";
+import { AutoCompleteFunction, SlashCommandRunFunction } from "../interfaces/interactions";
 
 export default class InteractionBuilder {
   private builder = new SlashCommandBuilder();
@@ -46,9 +43,7 @@ export default class InteractionBuilder {
   <!---------------------->
   */
 
-  setDefaultMemberPermissions(
-    permissions: string | number | bigint | null | undefined
-  ) {
+  setDefaultMemberPermissions(permissions: string | number | bigint | null | undefined) {
     this.builder.setDefaultMemberPermissions(permissions);
     return this;
   }
@@ -58,86 +53,64 @@ export default class InteractionBuilder {
     return this;
   }
 
-  addStringOption(
-    input: (option: SlashCommandStringOption) => SlashCommandStringOption
-  ) {
+  addStringOption(input: (option: SlashCommandStringOption) => SlashCommandStringOption) {
     this.builder.addStringOption(input);
     return this;
   }
 
-  addUserOption(
-    input: (option: SlashCommandUserOption) => SlashCommandUserOption
-  ) {
+  addUserOption(input: (option: SlashCommandUserOption) => SlashCommandUserOption) {
     this.builder.addUserOption(input);
     return this;
   }
 
-  addBooleanOption(
-    input: (option: SlashCommandBooleanOption) => SlashCommandBooleanOption
-  ) {
+  addBooleanOption(input: (option: SlashCommandBooleanOption) => SlashCommandBooleanOption) {
     this.builder.addBooleanOption(input);
     return this;
   }
 
-  addIntegerOption(
-    input: (option: SlashCommandIntegerOption) => SlashCommandIntegerOption
-  ) {
+  addIntegerOption(input: (option: SlashCommandIntegerOption) => SlashCommandIntegerOption) {
     this.builder.addIntegerOption(input);
     return this;
   }
 
-  addNumberOption(
-    input: (option: SlashCommandNumberOption) => SlashCommandNumberOption
-  ) {
+  addNumberOption(input: (option: SlashCommandNumberOption) => SlashCommandNumberOption) {
     this.builder.addNumberOption(input);
     return this;
   }
 
-  addRoleOption(
-    input: (option: SlashCommandRoleOption) => SlashCommandRoleOption
-  ) {
+  addRoleOption(input: (option: SlashCommandRoleOption) => SlashCommandRoleOption) {
     this.builder.addRoleOption(input);
     return this;
   }
 
-  addChannelOption(
-    input: (option: SlashCommandChannelOption) => SlashCommandChannelOption
-  ) {
+  addChannelOption(input: (option: SlashCommandChannelOption) => SlashCommandChannelOption) {
     this.builder.addChannelOption(input);
     return this;
   }
 
   addMentionableOption(
-    input: (
-      option: SlashCommandMentionableOption
-    ) => SlashCommandMentionableOption
+    input: (option: SlashCommandMentionableOption) => SlashCommandMentionableOption
   ) {
     this.builder.addMentionableOption(input);
     return this;
   }
 
   addAttachmentOption(
-    input: (
-      option: SlashCommandAttachmentOption
-    ) => SlashCommandAttachmentOption
+    input: (option: SlashCommandAttachmentOption) => SlashCommandAttachmentOption
   ) {
     this.builder.addAttachmentOption(input);
     return this;
   }
 
   addSubcommand(
-    input: (
-      subcommand: SlashCommandSubcommandBuilder
-    ) => SlashCommandSubcommandBuilder
+    input: (subcommand: SlashCommandSubcommandBuilder) => SlashCommandSubcommandBuilder
   ) {
     this.builder.addSubcommand(input);
     return this;
   }
 
   addSubcommandGroup(
-    input: (
-      group: SlashCommandSubcommandGroupBuilder
-    ) => SlashCommandSubcommandGroupBuilder
+    input: (group: SlashCommandSubcommandGroupBuilder) => SlashCommandSubcommandGroupBuilder
   ) {
     this.builder.addSubcommandGroup(input);
     return this;

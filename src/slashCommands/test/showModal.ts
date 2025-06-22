@@ -1,9 +1,4 @@
-import {
-  ActionRowBuilder,
-  ModalBuilder,
-  TextInputBuilder,
-  TextInputStyle,
-} from "discord.js";
+import { ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } from "discord.js";
 import InteractionBuilder from "../../classes/interactionBuilder";
 
 module.exports = new InteractionBuilder()

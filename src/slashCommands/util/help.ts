@@ -5,10 +5,7 @@ module.exports = new InteractionBuilder()
   .setName("help")
   .setDescription("A basic help command")
   .addStringOption((option) =>
-    option
-      .setName("command")
-      .setDescription("Search for a specific command")
-      .setAutocomplete(true)
+    option.setName("command").setDescription("Search for a specific command").setAutocomplete(true)
   )
   .setCached(true)
   .setAutocomplete(async (interaction, client) => {
@@ -43,9 +40,7 @@ module.exports = new InteractionBuilder()
   })
   .setRun(async (interaction, client) => {
     const input = interaction.options.getString("command");
-    const embed = new EmbedBuilder()
-      .setColor(client.config.embedColor)
-      .setTimestamp();
+    const embed = new EmbedBuilder().setColor(client.config.embedColor).setTimestamp();
 
     if (!input) {
       const categories: Record<string, string[]> = {};
@@ -53,8 +48,7 @@ module.exports = new InteractionBuilder()
       for (const cmd of client.interactions.values()) {
         const json = client.utils.resolveCommandJSON(cmd.data);
         const folder =
-          client.utils.formatStr((cmd as any).folder)?.replace("-", " ") ||
-          "Uncategorized";
+          client.utils.formatStr((cmd as any).folder)?.replace("-", " ") || "Uncategorized";
         const line = `${json.name} — ${json.description || "*No description*"}`;
 
         if (!categories[folder]) categories[folder] = [];
@@ -65,20 +59,13 @@ module.exports = new InteractionBuilder()
         categories[category].sort((a, b) => a.localeCompare(b));
       }
 
-      const sortedCategories = Object.entries(categories).sort(([a], [b]) =>
-        a.localeCompare(b)
-      );
+      const sortedCategories = Object.entries(categories).sort(([a], [b]) => a.localeCompare(b));
 
       const description = sortedCategories
-        .map(
-          ([category, lines]) =>
-            `**${category}**\n\`\`\`md\n${lines.join("\n")}\`\`\``
-        )
+        .map(([category, lines]) => `**${category}**\n\`\`\`md\n${lines.join("\n")}\`\`\``)
         .join("\n");
 
-      embed
-        .setTitle(`${client.user?.username}'s Commands`)
-        .setDescription(description);
+      embed.setTitle(`${client.user?.username}'s Commands`).setDescription(description);
 
       await interaction.reply({ embeds: [embed], flags: 64 });
       return;
@@ -95,15 +82,12 @@ module.exports = new InteractionBuilder()
 
     const json = client.utils.resolveCommandJSON(cmd.data);
     const folder =
-      client.utils.formatStr((cmd as any).folder)?.replace("-", " ") ||
-      "Uncategorized";
+      client.utils.formatStr((cmd as any).folder)?.replace("-", " ") || "Uncategorized";
 
     embed
       .setTitle(`${client.utils.formatStr(json.name)} Command`)
       .setDescription(
-        `**Category**: \`${folder}\`\n**Description:**\`${
-          json.description || "*No description*"
-        }\``
+        `**Category**: \`${folder}\`\n**Description:**\`${json.description || "*No description*"}\``
       );
 
     await interaction.reply({

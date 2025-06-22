@@ -1,9 +1,4 @@
-import {
-  Client,
-  Partials,
-  Collection,
-  ApplicationCommandDataResolvable,
-} from "discord.js";
+import { Client, Partials, Collection, ApplicationCommandDataResolvable } from "discord.js";
 import { readdirSync } from "fs";
 import path from "path";
 import util, { logger } from "../utils/exports";
@@ -73,16 +68,10 @@ export default class myClient extends Client {
     });
     this.login(token).then(() => {
       handlerFolder.forEach((handler) => {
-        const handlerPath = path.join(
-          __dirname,
-          "..",
-          "handlers",
-          handler.name
-        );
+        const handlerPath = path.join(__dirname, "..", "handlers", handler.name);
         if (handler.isFile()) {
           const handlerFile = require(handlerPath);
-          if (typeof handlerFile.default === "function")
-            handlerFile.default(this);
+          if (typeof handlerFile.default === "function") handlerFile.default(this);
         } else {
           const handlerFiles = readdirSync(
             `${path.join(__dirname, "..", "handlers")}/${handler.name}`

@@ -8,10 +8,7 @@ import myClient from "../classes/client";
 export type SlashCommandRunFunction = (
   interaction: ChatInputCommandInteraction,
   client: myClient
-) =>
-  | void
-  | undefined
-  | Promise<void | InteractionResponse<boolean> | undefined>;
+) => void | undefined | Promise<void | InteractionResponse<boolean> | undefined>;
 
 export type AutoCompleteFunction = (
   interaction: AutocompleteInteraction,

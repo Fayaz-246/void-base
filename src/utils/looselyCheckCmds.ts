@@ -21,20 +21,14 @@ const IGNORED_KEYS = new Set([
 
 function cleanForComparison(obj: any): any {
   if (Array.isArray(obj)) {
-    return obj
-      .map(cleanForComparison)
-      .filter((v) => v !== undefined && v !== null);
+    return obj.map(cleanForComparison).filter((v) => v !== undefined && v !== null);
   } else if (typeof obj === "object" && obj !== null) {
     const newObj: any = {};
     for (const key in obj) {
       if (IGNORED_KEYS.has(key)) continue;
       const value = cleanForComparison(obj[key]);
       // Skip undefined/null/empty arrays
-      if (
-        value === undefined ||
-        value === null ||
-        (Array.isArray(value) && value.length === 0)
-      ) {
+      if (value === undefined || value === null || (Array.isArray(value) && value.length === 0)) {
         continue;
       }
       newObj[key] = value;
