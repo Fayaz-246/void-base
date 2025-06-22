@@ -3,16 +3,16 @@
 
 <p align="center">
   <a href="https://github.com/Fayaz-246/void-base">
-    <img src="https://img.shields.io/github/stars/Fayaz-246/void-base?style=social" alt="GitHub stars">
+    <img src="https://img.shields.io/github/stars/Fayaz-246/void-base?style=flat-square" alt="GitHub stars">
   </a>
   <a href="https://github.com/Fayaz-246/void-base">
-    <img src="https://img.shields.io/github/license/Fayaz-246/void-base" alt="License">
+    <img src="https://img.shields.io/github/license/Fayaz-246/void-base?style=flat-square" alt="License">
   </a>
   <a href="https://discord.js.org">
-    <img src="https://img.shields.io/badge/discord.js-14.19.3-blue?logo=discord" alt="Discord.js">
+    <img src="https://img.shields.io/badge/discord.js-14.19.3-blue?style=flat-square&logo=discord" alt="Discord.js">
   </a>
   <a href="https://www.typescriptlang.org/">
-    <img src="https://img.shields.io/badge/typescript-5.8.3-blue?logo=typescript" alt="TypeScript">
+    <img src="https://img.shields.io/badge/typescript-5.8.3-blue?style=flat-square&logo=typescript" alt="TypeScript">
   </a>
 </p>
 
