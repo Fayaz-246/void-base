@@ -5,7 +5,10 @@
 import * as fs from "fs/promises";
 import path from "path";
 
-export default async function getAllFiles(dir: string, foldersOnly: boolean = false): Promise<string[]> {
+export default async function getAllFiles(
+  dir: string,
+  foldersOnly: boolean = false
+): Promise<string[]> {
   const fileNames: string[] = [];
 
   const files = await fs.readdir(dir, { withFileTypes: true });
