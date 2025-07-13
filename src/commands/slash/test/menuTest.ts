@@ -1,7 +1,7 @@
 import { ActionRowBuilder, StringSelectMenuBuilder } from "discord.js";
-import InteractionBuilder from "../../classes/interactionBuilder";
+import InteractionBuilder from "../../../classes/interactionBuilder";
 
-module.exports = new InteractionBuilder()
+export default new InteractionBuilder()
   .setName("menu-test")
   .setDescription("To test the menu handler")
   .setRun(async (interaction, client) => {

@@ -7,7 +7,6 @@ export interface BaseConfig {
   successColor: ColorResolvable; // Embed color for success responses
   verbose: boolean; // Log every interaction
   checkEventNames: boolean; // Check if the events in src/events are valid
-  logTables: boolean; // Log the tables of every registered interaction / component
   requireGuildOnly: boolean; // Make all interactions & components only usable in guilds
 }
 
@@ -18,7 +17,6 @@ const config: BaseConfig = {
   successColor: "#42ed4b",
   verbose: true,
   checkEventNames: true,
-  logTables: false,
   requireGuildOnly: true,
 };
 

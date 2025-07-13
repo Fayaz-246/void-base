@@ -52,7 +52,6 @@ Built using:
 
 - **Created By:** [Fayaz](https://fayaz.is-a.dev/)
 - **Inspired By:** [MicroBase](https://github.com/MusicMakerOwO/MicroBase) by [MusicMaker](https://github.com/MusicMakerOwO/)
-- **Special Thanks:** Mr. ChatGPT himself; learned a ton while building this.
 
 ---
 
@@ -86,7 +85,6 @@ interface BaseConfig {
   successColor: ColorResolvable; // Embed color for success responses
   verbose: boolean; // Log every interaction
   checkEventNames: boolean; // Check if the events in src/events are valid
-  logTables: boolean; // Log the tables of every registered interaction / component
   requireGuildOnly: boolean; // Make all interactions & components only usable in guilds
 }
 ```
@@ -105,24 +103,26 @@ interface BaseConfig {
 
 Organize your files like so:
 
-- [`src/slashCommands/{type}`](#slash-commands)
-- [`src/buttons/{type}`](#buttons)
-- [`src/modals/{type}`](#modals)
-- [`src/menus/{type}`](#menus)
+- [`src/commands/slash/{category}`](#slash-commands)
+- [`src/components/buttons/{type}`](#buttons)
+- [`src/components/modals/{type}`](#modals)
+- [`src/components/menus/{type}`](#menus)
+
+- _Prefix commands coming soon!_
 
 ---
 
 ### Slash Commands
 
-Slash commands **must** be placed in a subfolder inside `src/slashCommands/`.
+Slash commands **must** be placed in a subfolder inside `src/commands/slash/`.
 
 **Example:**
 
 ```ts
-// src/slashCommands/test/test.ts
+// src/commands/slash/test/test.ts
 import InteractionBuilder from "../../classes/interactionBuilder";
 
-module.exports = new InteractionBuilder()
+export default new InteractionBuilder()
   .setName("test")
   .setDescription("An example command")
   // .setCached(true)      // Enable caching (optional)
@@ -162,12 +162,12 @@ await interaction.reply({
 
 ### Buttons
 
-**Directory:** `src/buttons/{type}`
+**Directory:** `src/components/buttons/{type}`
 
 ```ts
 import buttonFileBuilder from "../../classes/buttonFileBuilder";
 
-module.exports = new buttonFileBuilder()
+export default new buttonFileBuilder()
   .setCustomId("test")
   .setRun(async (interaction, args, client) => {
     await interaction.reply(`Hello from ${client.user?.username}`);
@@ -178,12 +178,12 @@ module.exports = new buttonFileBuilder()
 
 ### Modals
 
-**Directory:** `src/modals/{type}`
+**Directory:** `src/components/modals/{type}`
 
 ```ts
 import modalFileBuilder from "../../classes/modalFileBuilder";
 
-module.exports = new modalFileBuilder()
+export default new modalFileBuilder()
   .setCustomId("test_modal")
   .setRun(async (interaction, args, client) => {
     const inp = interaction.fields.getTextInputValue("input");
@@ -195,7 +195,7 @@ module.exports = new modalFileBuilder()
 
 ### Menus
 
-**Directory:** `src/menus/{type}`
+**Directory:** `src/components/menus/{type}`
 
 The `type` folder should be one of:
 
@@ -209,7 +209,7 @@ The `type` folder should be one of:
 ```ts
 import { StringSelectFileBuilder } from "../../classes/menuFile";
 
-module.exports = new StringSelectFileBuilder()
+export default new StringSelectFileBuilder()
   .setCustomId("menu_test")
   .setRun(async (interaction, args, client) => {
     await interaction.reply(interaction.values[0]);

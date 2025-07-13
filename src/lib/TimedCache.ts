@@ -1,4 +1,4 @@
-import { ITimedCacheConstructorOps, ExpireCallback } from "../interfaces/caches";
+import { ITimedCacheConstructorOps, ExpireCallback } from "../types/caches";
 import { error, warn } from "../utils/logs";
 import parseTimeToMs from "../utils/parseTimeToMs";
 

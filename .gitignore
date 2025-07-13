@@ -2,3 +2,6 @@
 node_modules
 dist
 pnpm-lock.yaml
+src/sqlite.db
+src/sqlite.db-shm
+src/sqlite.db-wal

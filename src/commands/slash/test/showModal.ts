@@ -1,7 +1,7 @@
 import { ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } from "discord.js";
-import InteractionBuilder from "../../classes/interactionBuilder";
+import InteractionBuilder from "../../../classes/interactionBuilder";
 
-module.exports = new InteractionBuilder()
+export default new InteractionBuilder()
   .setName("modal-test")
   .setDescription("To test the modal handler")
   .setRun(async (interaction, client) => {

@@ -2,7 +2,7 @@
  * Basic logger, no need to use chalk anymore!
  */
 
-const Colors = {
+export const Colors = {
   Red: "\x1B[31m",
   Yellow: "\x1B[33m",
   Green: "\x1B[32m",

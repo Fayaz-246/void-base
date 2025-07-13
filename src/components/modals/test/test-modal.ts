@@ -1,6 +1,6 @@
-import modalFileBuilder from "../../classes/modalFileBuilder";
+import modalFileBuilder from "../../../classes/modalFileBuilder";
 
-module.exports = new modalFileBuilder()
+export default new modalFileBuilder()
   .setCustomId("test_modal")
   .setRun(async (interaction, args, client) => {
     const inp = await interaction.fields.getTextInputValue("input");

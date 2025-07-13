@@ -1,7 +1,7 @@
 import { EmbedBuilder } from "discord.js";
-import InteractionBuilder from "../../classes/interactionBuilder";
+import InteractionBuilder from "../../../classes/interactionBuilder";
 
-module.exports = new InteractionBuilder()
+export default new InteractionBuilder()
   .setName("get-cache")
   .setDescription("To test the button handler")
   .addStringOption((o) =>

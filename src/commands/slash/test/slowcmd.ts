@@ -1,6 +1,6 @@
-import InteractionBuilder from "../../classes/interactionBuilder";
+import InteractionBuilder from "../../../classes/interactionBuilder";
 
-module.exports = new InteractionBuilder()
+export default new InteractionBuilder()
   .setName("slowcmd")
   .setDescription("To test the caching system")
   .setCached(true)

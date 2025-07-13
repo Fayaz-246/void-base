@@ -1,7 +1,7 @@
 import { ColorResolvable, EmbedBuilder } from "discord.js";
-import InteractionBuilder from "../../classes/interactionBuilder";
+import InteractionBuilder from "../../../classes/interactionBuilder";
 
-module.exports = new InteractionBuilder()
+export default new InteractionBuilder()
   .setName("ping")
   .setDescription("A simple ping command")
   .setRun(async (interaction, client) => {

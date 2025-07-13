@@ -1,5 +1,5 @@
-import { Client, Partials, Collection, ApplicationCommandDataResolvable } from "discord.js";
-import { readdirSync } from "fs";
+import { Client, Partials, Collection, ApplicationCommandData } from "discord.js";
+import * as fs from "fs/promises";
 import path from "path";
 import util, { logger } from "../utils/exports";
 import {
@@ -10,7 +10,7 @@ import {
   SlashCommand,
   StringSelect,
   UserSelect,
-} from "../interfaces/main";
+} from "../types/main";
 import TimedCache from "../lib/TimedCache";
 import db from "../lib/db";
 import cfg, { BaseConfig } from "../config";
@@ -32,14 +32,8 @@ export default class myClient extends Client {
 
   public logger = logger;
 
-  public commandArray: ApplicationCommandDataResolvable[] = [];
-
-  public tables: {
-    slashCommands: string | null;
-    buttons: string | null;
-    modals: string | null;
-    menus: string | null;
-  } = { slashCommands: null, buttons: null, modals: null, menus: null };
+  public commandArray: ApplicationCommandData[] = [];
+  public autocompleteCommands: { name: string; lowerName: string }[] = [];
 
   public cache = new TimedCache({
     name: "mainBotCache",
@@ -67,33 +61,40 @@ export default class myClient extends Client {
     this.start(process.env.TOKEN!);
   }
 
-  private start(token: string) {
-    const handlerFolder = readdirSync(path.join(__dirname, "..", "handlers"), {
+  private async start(token: string) {
+    const handlerFolders = await fs.readdir(path.join(__dirname, "..", "handlers"), {
       withFileTypes: true,
     });
-    this.login(token).then(() => {
-      handlerFolder.forEach((handler) => {
-        const handlerPath = path.join(__dirname, "..", "handlers", handler.name);
-        if (handler.isFile()) {
-          const handlerFile = require(handlerPath);
-          if (typeof handlerFile.default === "function") handlerFile.default(this);
-        } else {
-          const handlerFiles = readdirSync(
-            `${path.join(__dirname, "..", "handlers")}/${handler.name}`
-          );
-          handlerFiles.forEach((file) => {
-            const fileExec = require(path.join(handlerPath, file));
-            if (typeof fileExec.default === "function") fileExec.default(this);
-          });
+
+    for (const handlerFolder of handlerFolders) {
+      const handlerPath = path.join(__dirname, "..", "handlers", handlerFolder.name);
+
+      if (handlerFolder.isFile()) {
+        const handlerModule = await import(handlerPath);
+        if (typeof handlerModule.default === "function") {
+          await handlerModule.default(this);
         }
-      });
-    });
+      } else if (handlerFolder.isDirectory()) {
+        const handlerFiles = await fs.readdir(handlerPath);
+        for (const file of handlerFiles) {
+          if (file === "slashCommands.ts") continue; // Skip slashCommands.ts, only loading after client is logged in
+
+          const filePath = path.join(handlerPath, file);
+          const handlerModule = await import(filePath);
+          if (typeof handlerModule.default === "function") {
+            await handlerModule.default(this);
+          }
+        }
+      }
+    }
+
+    await this.login(token);
   }
 
   async kill() {
     this.removeAllListeners();
     await super.destroy();
-
     this.db.close();
+    return true;
   }
 }

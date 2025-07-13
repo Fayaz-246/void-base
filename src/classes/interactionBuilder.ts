@@ -16,8 +16,8 @@ import {
   AutoCompleteFunction,
   InteractionFlags,
   SlashCommandRunFunction,
-} from "../interfaces/interactions";
-import { SlashCommand } from "../interfaces/main";
+} from "../types/interactions";
+import { SlashCommand } from "../types/main";
 
 export default class InteractionBuilder {
   private builder = new SlashCommandBuilder();

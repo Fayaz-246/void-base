@@ -7,7 +7,7 @@ type menuType = "string" | "user" | "channel" | "role";
 export default function menuHandler(client: myClient) {
   baseHandler(client, {
     type: "menus",
-    rootDir: path.join(__dirname, "..", "..", "menus"),
+    rootDir: path.join(__dirname, "..", "..", "components", "menus"),
     validateFolder: (folder) => {
       const lower = folder.toLowerCase();
       return ["string", "user", "channel", "role"].includes(lower);

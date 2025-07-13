@@ -7,7 +7,7 @@ import {
   UserSelectMenuInteraction,
 } from "discord.js";
 import myClient from "../../classes/client";
-import { ChannelSelect, RoleSelect, StringSelect, UserSelect } from "../../interfaces/main";
+import { ChannelSelect, RoleSelect, StringSelect, UserSelect } from "../../types/main";
 
 async function runMenu(client: myClient, interaction: Interaction) {
   if (!interaction.isAnySelectMenu()) return;

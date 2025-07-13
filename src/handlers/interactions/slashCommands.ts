@@ -1,53 +1,34 @@
-import { readdirSync } from "fs";
+import * as fs from "fs/promises";
 import path from "path";
-import clitable from "cli-table3";
 import myClient from "../../classes/client";
-
-const Colors = {
-  Red: "\x1B[31m",
-  Yellow: "\x1B[33m",
-  Green: "\x1B[32m",
-  Blue: "\x1B[34m",
-  Purple: "\x1B[38;5;129m",
-  Reset: "\x1B[0m",
-};
+import { Colors } from "../../utils/logs";
 
 async function slashCmdHandler(client: myClient) {
-  const commandsDir = path.join(__dirname, "..", "..", "slashCommands");
-  const folders = readdirSync(commandsDir);
-  const table = new clitable({
-    head: ["Command", "Category", "Status"],
-    style: { head: ["white"], border: ["gray"] },
-    colWidths: [20, 20, 10],
-  });
+  const commandsDir = path.join(__dirname, "..", "..", "commands", "slash");
+  const folders = await fs.readdir(commandsDir);
 
   const check = client.utils.looselyCheck;
 
   for (const folder of folders) {
-    const files = readdirSync(path.join(commandsDir, folder));
+    const files = await fs.readdir(path.join(commandsDir, folder));
     for (const file of files) {
-      const filepath = `../../slashCommands/${folder}/${file.slice(0, -3)}`;
-      let command = require(filepath);
-      command = command?.build?.();
+      const filepath = `../../commands/slash/${folder}/${file.slice(0, -3)}`;
+      let command = await import(filepath);
+      command = command?.default?.build?.();
 
       if (command?.data && command?.run) {
         client.interactions.set(command.data.name, Object.assign(command, { folder }));
         client.commandArray.push(client.utils.filterObj(command.data));
-        table.push([
-          `${Colors.Green}${command.data.name}${Colors.Reset}`,
-          `${Colors.Green}${folder}${Colors.Reset}`,
-          `${Colors.Green}${Colors.Reset}`,
-        ]);
       } else {
         client.logger.warn("SLASH CMDS", `${file} is missing data or run()`);
-        table.push([
-          `${Colors.Red}${file}${Colors.Reset}`,
-          `${Colors.Red}${folder}${Colors.Reset}`,
-          `${Colors.Red}${Colors.Reset}`,
-        ]);
       }
     }
   }
+
+  client.autocompleteCommands = client.commandArray.map((cmd) => ({
+    name: cmd.name,
+    lowerName: cmd.name.toLowerCase(),
+  }));
 
   if (!client.commandArray.length) {
     return client.logger.error("SLASH CMDS", `Aborting (/) registration: No commands found.`);
@@ -56,13 +37,11 @@ async function slashCmdHandler(client: myClient) {
   try {
     client.logger.warn("󰇘", "Fetching existing (/) commands...");
     const existing = await client.application?.commands.fetch();
-    //@ts-expect-error
     const localNames = client.commandArray.map((cmd) => cmd.name);
     const newCommands = [];
     const updatedCommands = [];
 
     for (const localCmd of client.commandArray) {
-      //@ts-expect-error
       const existingCmd = existing?.find((cmd) => cmd.name === localCmd.name);
       if (!existingCmd) {
         newCommands.push(localCmd);
@@ -83,18 +62,30 @@ async function slashCmdHandler(client: myClient) {
         console.log(`${Colors.Red}  ↳ Deleted: ${cmd.name}${Colors.Reset}`);
       }
     }
-    const toRegister = [...newCommands, ...updatedCommands];
-    if (toRegister.length === 0) {
-      client.logger.success("", "No command changes. Skipping (/) registration.");
-    } else {
-      client.logger.warn("󰇘", `${toRegister.length} new/updated commands...`);
-      await client.application?.commands.set([
-        ...client.commandArray, // send full clean state
-      ]);
-      client.logger.success("", `Successfully refreshed ${toRegister.length} (/) commands.`);
+    if (newCommands.length > 0) {
+      client.logger.warn("󰇘", `Registering ${newCommands.length} new command(s)...`);
+      for (const cmd of newCommands) {
+        await client.application?.commands.create(cmd);
+        console.log(`${Colors.Green}  ↳ Created: ${cmd.name}${Colors.Reset}`);
+      }
     }
 
-    client.tables.slashCommands = table.toString();
+    if (updatedCommands.length > 0) {
+      client.logger.warn("󰇘", `Updating ${updatedCommands.length} command(s)...`);
+      for (const cmd of updatedCommands) {
+        const existingCmd = existing?.find((e) => e.name === cmd.name);
+        if (existingCmd) {
+          await client.application?.commands.edit(existingCmd.id, cmd);
+          console.log(`${Colors.Blue}  ↳ Updated: ${cmd.name}${Colors.Reset}`);
+        }
+      }
+    }
+
+    if (toDelete.length === 0 && newCommands.length === 0 && updatedCommands.length === 0) {
+      client.logger.success("", "No command changes. Skipping (/) registration.");
+    } else {
+      client.logger.success("", `Successfully refreshed (/) commands.`);
+    }
   } catch (err) {
     client.logger.error("SLASH CMDS", `Error during (/) registration: ${err}`);
   }

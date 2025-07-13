@@ -1,10 +1,16 @@
 import {
   AutocompleteInteraction,
   BitFieldResolvable,
+  ButtonInteraction,
+  ChannelSelectMenuInteraction,
   ChatInputCommandInteraction,
   InteractionResponse,
   MessageFlags,
   MessageFlagsString,
+  ModalSubmitInteraction,
+  RoleSelectMenuInteraction,
+  StringSelectMenuInteraction,
+  UserSelectMenuInteraction,
 } from "discord.js";
 import myClient from "../classes/client";
 
@@ -21,3 +27,11 @@ export type AutoCompleteFunction = (
 export type InteractionFlags =
   | BitFieldResolvable<Extract<MessageFlagsString, "Ephemeral">, MessageFlags.Ephemeral>
   | undefined;
+
+export type ComponentInteractions =
+  | ButtonInteraction
+  | ModalSubmitInteraction
+  | StringSelectMenuInteraction
+  | RoleSelectMenuInteraction
+  | UserSelectMenuInteraction
+  | ChannelSelectMenuInteraction;

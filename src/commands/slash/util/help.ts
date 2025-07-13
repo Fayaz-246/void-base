@@ -1,7 +1,7 @@
 import { EmbedBuilder } from "discord.js";
-import InteractionBuilder from "../../classes/interactionBuilder";
+import InteractionBuilder from "../../../classes/interactionBuilder";
 
-module.exports = new InteractionBuilder()
+export default new InteractionBuilder()
   .setName("help")
   .setDescription("A basic help command")
   .addStringOption((option) =>
@@ -13,16 +13,13 @@ module.exports = new InteractionBuilder()
   .setAutocomplete(async (interaction, client) => {
     const focused = interaction.options.getFocused().toLowerCase();
 
-    const matches = client?.interactions
+    const matches = client?.autocompleteCommands
       .map((cmd) => {
-        const json = client.utils.resolveCommandJSON(cmd.data);
-
-        const name = json.name.toLowerCase();
         let score = 0;
-        if (name.startsWith(focused)) score += 2;
-        if (name.includes(focused)) score += 1;
+        if (cmd.lowerName.startsWith(focused)) score += 2;
+        if (cmd.lowerName.includes(focused)) score += 1;
 
-        return { name: json.name, score };
+        return { name: cmd.name, score };
       })
       .filter((entry) => entry.score > 0)
       .sort((a, b) => b.score - a.score)

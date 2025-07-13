@@ -1,7 +1,8 @@
 import { Interaction } from "discord.js";
-import { BaseComponentInteraction, baseComponentRun } from "../interfaces/bases";
+import { BaseComponentInteraction, baseComponentRun } from "../types/bases";
+import { ComponentInteractions } from "../types/interactions";
 
-export default class baseComponentBuilder<T extends Interaction> {
+export default class baseComponentBuilder<T extends ComponentInteractions> {
   protected _customId: string;
   protected _run: baseComponentRun<T>;
 
