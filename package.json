@@ -6,22 +6,28 @@
   "type": "commonjs",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "tsx watch src/index.ts",
-    "start": "node .",
+    "dev": "tsx --tsconfig tsconfig.json -r tsconfig-paths/register watch src/index.ts",
+    "start": "node --require module-alias/register .",
     "build": "tsc",
     "build:unix": "rm -rf dist && tsc",
     "format": "prettier --write ."
+  },
+  "_moduleAliases": {
+    "@schemas": "dist/schemas"
   },
   "dependencies": {
     "better-sqlite3": "^11.10.0",
     "discord.js": "^14.19.3",
     "dotenv": "^16.5.0",
+    "module-alias": "^2.2.3",
+    "mongoose": "^8.16.3",
     "prettier": "^3.5.3"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.13",
     "@types/node": "^22.15.29",
     "globals": "^16.1.0",
+    "tsconfig-paths": "^4.2.0",
     "tsx": "^4.19.4",
     "typescript": "^5.8.3"
   },

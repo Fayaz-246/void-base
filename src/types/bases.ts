@@ -1,5 +1,19 @@
 import myClient from "../classes/client";
-import { ComponentInteractions } from "./interactions";
+import {
+  ButtonInteraction,
+  ModalSubmitInteraction,
+  RoleSelectMenuInteraction,
+  StringSelectMenuInteraction,
+  UserSelectMenuInteraction,
+  ChannelSelectMenuInteraction,
+} from "discord.js";
+export type ComponentInteractions =
+  | ButtonInteraction
+  | ModalSubmitInteraction
+  | StringSelectMenuInteraction
+  | RoleSelectMenuInteraction
+  | UserSelectMenuInteraction
+  | ChannelSelectMenuInteraction;
 
 export type baseComponentRun<T extends ComponentInteractions> = (
   interaction: T,

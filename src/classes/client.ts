@@ -12,10 +12,10 @@ import {
   UserSelect,
 } from "../types/main";
 import TimedCache from "../lib/TimedCache";
-import db from "../lib/db";
 import cfg, { BaseConfig } from "../config";
+import { IClient } from "../types/client";
 
-export default class myClient extends Client {
+export default class myClient extends Client implements IClient {
   public interactions = new Collection<string, SlashCommand>();
   public buttons = new Collection<string, ButtonCommand>();
   public modals = new Collection<string, ModalSubmit>();
@@ -42,10 +42,8 @@ export default class myClient extends Client {
 
   public replyCache = new TimedCache({
     name: "commandRepliesCache",
-    defaultTTL: "3m",
+    defaultTTL: "10m",
   });
-
-  public db = db;
 
   constructor() {
     super({
@@ -94,7 +92,6 @@ export default class myClient extends Client {
   async kill() {
     this.removeAllListeners();
     await super.destroy();
-    this.db.close();
     return true;
   }
 }

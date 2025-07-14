@@ -10,7 +10,10 @@ interface BaseHandlerOptions {
   onValidLoad?: (client: myClient, folder: string, file: string, built: any) => void;
 }
 
-export default async function baseHandler(client: myClient, opts: BaseHandlerOptions) {
+export default async function baseHandler(
+  client: myClient,
+  opts: BaseHandlerOptions
+): Promise<void> {
   const { type, rootDir, validateFolder, onValidLoad } = opts;
 
   const commandsDir = rootDir || path.join(__dirname, "..", "components", type);
