@@ -1,4 +1,4 @@
-import InteractionBuilder from "../../../classes/interactionBuilder";
+import InteractionBuilder from "@builders/interactionBuilder";
 import UserModel from "@schemas/testSchema";
 
 export default new InteractionBuilder()

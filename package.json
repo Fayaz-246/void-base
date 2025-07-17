@@ -6,14 +6,16 @@
   "type": "commonjs",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "tsx --tsconfig tsconfig.json -r tsconfig-paths/register watch src/index.ts",
+    "dev": "tsx --tsconfig tsconfig.json -r tsconfig-paths/register --watch src/index.ts",
     "start": "node --require module-alias/register .",
     "build": "tsc",
     "build:unix": "rm -rf dist && tsc",
     "format": "prettier --write ."
   },
   "_moduleAliases": {
-    "@schemas": "dist/schemas"
+    "@schemas": "dist/schemas",
+    "@lib": "dist/lib",
+    "@builders": "dist/classes/builders"
   },
   "dependencies": {
     "discord.js": "^14.19.3",

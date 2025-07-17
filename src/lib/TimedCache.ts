@@ -42,7 +42,7 @@ export default class TimedCache<V = any> {
 
   get(key: string): V | undefined {
     if (!this.cache.has(key)) {
-      error("CACHES", `${this.name} | Timed Cache does not have key '${key}' to get`);
+      error("CACHES", `${this.name} Timed Cache | Does not have key '${key}' to get`);
       return undefined;
     }
     return this.cache.get(key);
@@ -50,7 +50,7 @@ export default class TimedCache<V = any> {
 
   delete(key: string): boolean {
     if (!this.check(key)) {
-      error("CACHES", `${this.name} | Timed Cache does not have key '${key}' to delete.`);
+      error("CACHES", `${this.name} Timed Cache | Does not have key '${key}' to delete.`);
       return false;
     }
 

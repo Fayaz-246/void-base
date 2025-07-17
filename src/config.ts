@@ -8,6 +8,7 @@ export interface BaseConfig {
   verbose: boolean; // Log every interaction
   checkEventNames: boolean; // Check if the events in src/events are valid
   requireGuildOnly: boolean; // Make all interactions & components only usable in guilds
+  prefix: string;
 }
 
 const config: BaseConfig = {
@@ -18,6 +19,7 @@ const config: BaseConfig = {
   verbose: true,
   checkEventNames: true,
   requireGuildOnly: true,
+  prefix: "?",
 };
 
 export default config;

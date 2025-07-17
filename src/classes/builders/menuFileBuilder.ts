@@ -4,7 +4,7 @@ import {
   StringSelectMenuInteraction,
   UserSelectMenuInteraction,
 } from "discord.js";
-import baseComponentBuilder from "../lib/baseBuilder";
+import baseComponentBuilder from "@lib/baseBuilder";
 
 export class StringSelectFileBuilder extends baseComponentBuilder<StringSelectMenuInteraction> {
   constructor() {

@@ -1,5 +1,5 @@
 import { ColorResolvable, EmbedBuilder } from "discord.js";
-import InteractionBuilder from "../../../classes/interactionBuilder";
+import InteractionBuilder from "@builders/interactionBuilder";
 
 export default new InteractionBuilder()
   .setName("ping")

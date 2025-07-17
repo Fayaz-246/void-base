@@ -1,5 +1,5 @@
 import { EmbedBuilder } from "discord.js";
-import InteractionBuilder from "../../../classes/interactionBuilder";
+import InteractionBuilder from "@builders/interactionBuilder";
 
 export default new InteractionBuilder()
   .setName("get-cache")
@@ -18,7 +18,7 @@ export default new InteractionBuilder()
       .setColor(client.config.embedColor)
       .setTimestamp();
     let clientCache;
-    if (cache == "rc") clientCache = client.replyCache.entries();
+    if (cache == "rc") clientCache = client.replyCache.interactions.entries();
     else clientCache = client.cache.entries();
 
     embed.setDescription(`\`\`\`\n${clientCache}\`\`\``);

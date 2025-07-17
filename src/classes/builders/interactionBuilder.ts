@@ -16,13 +16,13 @@ import {
   AutoCompleteFunction,
   InteractionFlags,
   SlashCommandRunFunction,
-} from "../types/interactions";
-import { SlashCommand } from "../types/main";
+} from "../../types/interactions";
+import { SlashCommand } from "../../types/main";
 
 export default class InteractionBuilder {
   private builder = new SlashCommandBuilder();
-  private runFunction: SlashCommandRunFunction = () => {};
-  private autocompleteFunction: AutoCompleteFunction = () => {};
+  private runFunction: SlashCommandRunFunction = () => { };
+  private autocompleteFunction: AutoCompleteFunction = () => { };
   private isCached = false;
   private deferred = false;
   private deferFlags: InteractionFlags;
@@ -38,13 +38,13 @@ export default class InteractionBuilder {
   }
 
   /*
-  <!-----DEPRECEATED----->
-  setDMPermission(permission: boolean | null) {
-    this.builder.setDMPermission(permission);
-    return this;
-  }
-  <!---------------------->
-  */
+    <!-----DEPRECEATED----->
+    setDMPermission(permission: boolean | null) {
+      this.builder.setDMPermission(permission);
+      return this;
+    }
+    <!---------------------->
+    */
 
   setDefaultMemberPermissions(permissions: string | number | bigint | null | undefined) {
     this.builder.setDefaultMemberPermissions(permissions);

@@ -6,6 +6,7 @@ import {
   ButtonCommand,
   ChannelSelect,
   ModalSubmit,
+  PrefixCommand,
   RoleSelect,
   SlashCommand,
   StringSelect,
@@ -13,7 +14,7 @@ import {
 } from "../types/main";
 import TimedCache from "../lib/TimedCache";
 import cfg, { BaseConfig } from "../config";
-import { IClient } from "../types/client";
+import IClient from "../types/client";
 
 export default class myClient extends Client implements IClient {
   public interactions = new Collection<string, SlashCommand>();
@@ -25,8 +26,10 @@ export default class myClient extends Client implements IClient {
     channel: new Collection<string, ChannelSelect>(),
     role: new Collection<string, RoleSelect>(),
   };
+  public prefixCommands = new Collection<string, PrefixCommand>();
 
   public config: BaseConfig = cfg;
+  public prefix: string = this.config.prefix;
 
   public utils = util;
 
@@ -40,14 +43,20 @@ export default class myClient extends Client implements IClient {
     defaultTTL: "5m",
   });
 
-  public replyCache = new TimedCache({
-    name: "commandRepliesCache",
-    defaultTTL: "10m",
-  });
+  public replyCache = {
+    interactions: new TimedCache({
+      name: "interactionReplyCache",
+      defaultTTL: "10m",
+    }),
+    prefix: new TimedCache({
+      name: "prefixReplyCache",
+      defaultTTL: "10m",
+    }),
+  };
 
   constructor() {
     super({
-      intents: ["Guilds", "GuildMessages", "GuildMembers"],
+      intents: ["Guilds", "GuildMessages", "GuildMembers", "MessageContent"],
       partials: [Partials.User, Partials.GuildMember, Partials.Message],
     });
 
@@ -89,9 +98,9 @@ export default class myClient extends Client implements IClient {
     await this.login(token);
   }
 
-  async kill() {
+  async kill(): Promise<never> {
     this.removeAllListeners();
     await super.destroy();
-    return true;
+    process.exit(0);
   }
 }

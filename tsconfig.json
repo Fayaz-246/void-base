@@ -10,7 +10,9 @@
     "outDir": "dist",
     "baseUrl": ".",
     "paths": {
-      "@schemas/*": ["src/schemas/*"]
+      "@schemas/*": ["src/schemas/*"],
+      "@lib/*": ["src/lib/*"],
+      "@builders/*": ["src/classes/builders/*"]
     },
     "typeRoots": ["./src/types", "./node_modules/@types"],
     "types": ["node"]

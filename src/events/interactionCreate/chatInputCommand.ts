@@ -20,8 +20,8 @@ async function runSlashCmd(client: myClient, interaction: Interaction) {
     const canCache =
       interaction.options.data.length === 0 || interaction.options.data.every((opt) => !opt.value);
 
-    if (canCache && client.replyCache.check(interaction.commandName)) {
-      return await interaction.reply(client.replyCache.get(interaction.commandName));
+    if (canCache && client.replyCache.interactions.check(interaction.commandName)) {
+      return await interaction.reply(client.replyCache.interactions.get(interaction.commandName));
     }
 
     if (canCache) {
@@ -31,7 +31,7 @@ async function runSlashCmd(client: myClient, interaction: Interaction) {
       const saveToCache = (
         opts: string | MessagePayload | InteractionReplyOptions | InteractionEditReplyOptions
       ) => {
-        client.replyCache.add(interaction.commandName, opts);
+        client.replyCache.interactions.add(interaction.commandName, opts);
       };
 
       interaction.reply = (async (opts: string | MessagePayload | InteractionReplyOptions) => {

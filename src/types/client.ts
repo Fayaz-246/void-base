@@ -12,7 +12,7 @@ import { BaseConfig } from "../config";
 import TimedCache from "../lib/TimedCache";
 import * as util from "../utils/exports";
 
-export interface IClient extends Client {
+export default interface IClient extends Client {
   interactions: Collection<string, SlashCommand>;
   buttons: Collection<string, ButtonCommand>;
   modals: Collection<string, ModalSubmit>;
@@ -32,7 +32,10 @@ export interface IClient extends Client {
   autocompleteCommands: { name: string; lowerName: string }[];
 
   cache: TimedCache;
-  replyCache: TimedCache;
+  replyCache: {
+    interactions: TimedCache;
+    prefix: TimedCache;
+  };
 
-  kill(): Promise<boolean>;
+  kill(): Promise<never>;
 }

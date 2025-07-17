@@ -1,4 +1,4 @@
-import modalFileBuilder from "../../../classes/modalFileBuilder";
+import modalFileBuilder from "@builders/modalFileBuilder";
 
 export default new modalFileBuilder()
   .setCustomId("test_modal")

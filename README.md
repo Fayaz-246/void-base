@@ -104,11 +104,10 @@ interface BaseConfig {
 Organize your files like so:
 
 - [`src/commands/slash/{category}`](#slash-commands)
+- [`src/commands/prefix/{category}`](#prefix-commands)
 - [`src/components/buttons/{type}`](#buttons)
 - [`src/components/modals/{type}`](#modals)
 - [`src/components/menus/{type}`](#menus)
-
-- _Prefix commands coming soon!_
 
 ---
 
@@ -120,7 +119,7 @@ Slash commands **must** be placed in a subfolder inside `src/commands/slash/`.
 
 ```ts
 // src/commands/slash/test/test.ts
-import InteractionBuilder from "../../classes/interactionBuilder";
+import InteractionBuilder from "@builders/interactionBuilder";
 
 export default new InteractionBuilder()
   .setName("test")
@@ -160,12 +159,40 @@ await interaction.reply({
 
 ---
 
+### Prefix Commands
+
+Prefix commands **must** be placed in a subfolder inside` src/commands/prefix`
+
+**Example:**
+
+```ts
+//src/commands/prefix/test/test.ts
+import Command from "@builders/prefixCommandBuilder";
+
+export default new Command()
+    .setName("test")
+//  .setCached("true")
+    .setRun(async (message, args, client) => {
+        await message.reply("Sup prefix commands work");
+    });
+```
+
+The `PrefixCommandBuilder` class has the following methods:
+- `.setName(string)`
+- `.setRun(callback)`
+- `.setAliases(string[])`
+- `.setCached(boolean)`
+
+_`The caching literally just stores the commands response so it's only useful for static commands.`_
+
+---
+
 ### Buttons
 
 **Directory:** `src/components/buttons/{type}`
 
 ```ts
-import buttonFileBuilder from "../../classes/buttonFileBuilder";
+import buttonFileBuilder from "@builders/buttonFileBuilder";
 
 export default new buttonFileBuilder()
   .setCustomId("test")
@@ -181,7 +208,7 @@ export default new buttonFileBuilder()
 **Directory:** `src/components/modals/{type}`
 
 ```ts
-import modalFileBuilder from "../../classes/modalFileBuilder";
+import modalFileBuilder from "@builders/modalFileBuilder";
 
 export default new modalFileBuilder()
   .setCustomId("test_modal")
@@ -207,7 +234,7 @@ The `type` folder should be one of:
 **Example:**
 
 ```ts
-import { StringSelectFileBuilder } from "../../classes/menuFile";
+import { StringSelectFileBuilder } from "@builders/menuFileBuilder";
 
 export default new StringSelectFileBuilder()
   .setCustomId("menu_test")
@@ -245,10 +272,9 @@ Events go in `src/events/{eventName}/`.
 
 ### Database (DB)
 
-Void Base uses SQLite for simplicity and speed.
+Void Base uses MongoDB. 
 
-- Define tables in `src/lib/db.ts`
-- Access the DB via `client.db` inside your command files.
+- Define schemas in `src/schemas`, access them by using `@schemas/<name>` in your command files.
 
 ## Contributing
 
@@ -273,3 +299,4 @@ Please try to follow the existing code style, and write clear commit messages.
 4. Push to the branch (`git push origin your-feature`)
 5. Open a pull request
 ```
+

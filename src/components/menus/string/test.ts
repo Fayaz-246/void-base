@@ -1,4 +1,4 @@
-import { StringSelectFileBuilder } from "../../../classes/menuFile";
+import { StringSelectFileBuilder } from "@builders/menuFileBuilder";
 
 export default new StringSelectFileBuilder()
   .setCustomId("menu_test")

@@ -1,9 +1,8 @@
 import * as fs from "fs/promises";
 import path from "path";
 import myClient from "../classes/client";
-import { Colors } from "../utils/logs";
 
-interface BaseHandlerOptions {
+export interface BaseHandlerOptions {
   type: "buttons" | "modals" | "menus";
   rootDir?: string;
   validateFolder?: (folder: string) => boolean;

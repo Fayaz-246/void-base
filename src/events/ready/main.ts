@@ -8,7 +8,7 @@ async function main(client: myClient) {
 
   client.logger.info(
     "󱜙",
-    `Loaded ${client.application?.commands.cache.size} Slash Command(s), ${
+    `Loaded ${client.application?.commands.cache.size} Slash Command(s), ${client.prefixCommands.size} Prefix Command(s), ${
       client.buttons.size
     } Button(s), ${client.modals.size} Modal(s) & ${Object.values(client.menus).reduce(
       (sum, col) => sum + col.size,
