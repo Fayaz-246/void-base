@@ -28,6 +28,7 @@
   - [Basic Features](#basic-features)
   - [File Formats](#file-formats)
     - [Slash Commands](#slash-commands)
+    - [Prefix Commands](#prefix-commands)
     - [Buttons](#buttons)
     - [Modals](#modals)
     - [Menus](#menus)
