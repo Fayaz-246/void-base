@@ -21,8 +21,8 @@ import { SlashCommand } from "../../types/main";
 
 export default class InteractionBuilder {
   private builder = new SlashCommandBuilder();
-  private runFunction: SlashCommandRunFunction = () => { };
-  private autocompleteFunction: AutoCompleteFunction = () => { };
+  private runFunction: SlashCommandRunFunction = () => {};
+  private autocompleteFunction: AutoCompleteFunction = () => {};
   private isCached = false;
   private deferred = false;
   private deferFlags: InteractionFlags;

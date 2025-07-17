@@ -170,14 +170,15 @@ Prefix commands **must** be placed in a subfolder inside` src/commands/prefix`
 import Command from "@builders/prefixCommandBuilder";
 
 export default new Command()
-    .setName("test")
-//  .setCached("true")
-    .setRun(async (message, args, client) => {
-        await message.reply("Sup prefix commands work");
-    });
+  .setName("test")
+  //  .setCached("true")
+  .setRun(async (message, args, client) => {
+    await message.reply("Sup prefix commands work");
+  });
 ```
 
 The `PrefixCommandBuilder` class has the following methods:
+
 - `.setName(string)`
 - `.setRun(callback)`
 - `.setAliases(string[])`
@@ -272,7 +273,7 @@ Events go in `src/events/{eventName}/`.
 
 ### Database (DB)
 
-Void Base uses MongoDB. 
+Void Base uses MongoDB.
 
 - Define schemas in `src/schemas`, access them by using `@schemas/<name>` in your command files.
 
@@ -299,4 +300,3 @@ Please try to follow the existing code style, and write clear commit messages.
 4. Push to the branch (`git push origin your-feature`)
 5. Open a pull request
 ```
-
